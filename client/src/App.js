@@ -1,38 +1,43 @@
-import { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 
-function App() {
-  const [message, setMessage] = useState('');
+import { Home, About, Examinations, OnlineResults, NotFound } from './pages';
 
-  useEffect(() => {
-    fetch('/api/hello')
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data);
-        setMessage(data.message)
-      });
+import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
+import GlobalStyles from'./index.css.js';
 
-  }, []);
 
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1>Message from backend: {message}</h1>
-      </header>
-    </div>
+    <Layout>
+      <GlobalStyles />
+      <Sidebar>
+        <h1>GeneLab</h1>
+        <nav>
+          <ul>
+            <li><Link to='/'>Strona główna</Link></li>
+            <li><Link to='/examinations'>Badania</Link></li>
+            <li><Link to='/results'>Wyniki online</Link></li>
+            <li><Link to='/about'>O nas</Link></li>
+          </ul>
+        </nav>
+      </Sidebar>
+      <Center>
+        <Header>Górny pasek kontrolny</Header>
+        <Page>
+          <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/examinations' exact component={Examinations} />
+            <Route path='/results' exact component={OnlineResults} />
+            <Route path='/about' component={About} />
+            <Route component={NotFound} />
+          </Switch>
+        </Page>
+        <Footer>
+          Stopka
+        </Footer>
+      </Center>
+    </Layout>
   );
 }
 
