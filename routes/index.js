@@ -1,0 +1,1 @@
+export { default as testFamiliesRouter } from './testFamilies.routes';

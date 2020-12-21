@@ -1,20 +1,26 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { pool } from './db/index.js';
+
+import testFamiliesRouter from './routes/testFamilies.routes.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+app.use(express.static('client/build'));
 app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello there, im working fine!' });
-});
+app.use('/tests', testFamiliesRouter);
 
 app.get('*', (reg, res) => {
-  res.sendFile('client/public/index.html', { root: './' });
+  res.sendFile('client/build/index.html', { root: './' });
 });
 
 app.listen(PORT, () => {
