@@ -7,6 +7,7 @@ dotenv.config();
 import { pool } from './db/index.js';
 
 import testCategoryRouter from './routes/testCategoryRouter.js';
+import biologicalMaterialRouter from './routes/biologicalMaterialRouter.js';
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 
 app.use('/categories', testCategoryRouter);
+app.use('/materials', biologicalMaterialRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });
