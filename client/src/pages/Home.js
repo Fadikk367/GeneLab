@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTestFamily } from 'state/actions/testFamilies.actions';
+import { createTestCategory } from 'state/testCategory/testCategoryActions';
 
 
 const Home = () => {
-  const [familyName, setFamilyName] = useState('');
+  const [categoryName, setCategoryName] = useState('');
+  const [categoryDescription, setCategoryDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const handleAddDiagnosticTestsFamily = async e => {
+  const handleAddTestCategory = async e => {
     e.preventDefault();
 
-    if (familyName) {
+    if (categoryName && categoryDescription) {
       setIsLoading(true);
-      dispatch(createTestFamily(familyName))
+      dispatch(createTestCategory(categoryName, categoryDescription))
         .then(() => setIsLoading(false))
         .catch(() => setIsLoading(false));
     }
@@ -22,9 +23,11 @@ const Home = () => {
     <div>
       Home page
 
-      <form onSubmit={handleAddDiagnosticTestsFamily}>
-        <label>Family name:</label><br />
-        <input type="text" name="familyName" value={familyName} onChange={e => setFamilyName(e.target.value)}/>
+      <form onSubmit={handleAddTestCategory}>
+        <label>Category name:</label><br />
+        <input type="text" name="categoryName" value={categoryName} onChange={e => setCategoryName(e.target.value)}/><br />
+        <label>Category description:</label><br />
+        <textarea name="categoryDescription" cols="50" rows="5" value={categoryDescription} onChange={e => setCategoryDescription(e.target.value)}></textarea><br />
         <button type='submit'>dodaj</button>
         <span>{isLoading ? 'loading...' : null}</span>
       </form>

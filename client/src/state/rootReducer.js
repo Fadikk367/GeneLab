@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import testFamiliesReducer from './testFamilies.reducer';
+import testCategoryReducer from './testCategory/testCategoryReducer';
 
 
 const rootReducer = combineReducers({
-  testFamilies: testFamiliesReducer
+  testCategory: testCategoryReducer
 });
 
 export default rootReducer;

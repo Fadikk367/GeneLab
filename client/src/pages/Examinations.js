@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAllTestFamilies, deleteTestFamily } from 'state/actions/testFamilies.actions';
+import { getAllTestCategories, deleteTestCategory } from 'state/testCategory/testCategoryActions';
 
 
 const Examinations = () => {
-  const testFamilies = useSelector(state => state.testFamilies.familyList)
+  const testCategories = useSelector(state => state.testCategory.categoryList)
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getAllTestFamilies());
+    dispatch(getAllTestCategories());
   }, [dispatch]);
 
-  const renderedTests = testFamilies.map(test => (
-    <li key={test.id}>
-      {test.id} - {test.familyname}
-      <button onClick={() => dispatch(deleteTestFamily(test.id))}>x</button>
+  const renderedTestCategories = testCategories.map(category => (
+    <li key={category.id}>
+      {category.id} - {category.name}
+      <button onClick={() => dispatch(deleteTestCategory(category.id))}>x</button>
     </li>
   ));
 
@@ -23,7 +23,7 @@ const Examinations = () => {
     <div>
       Strona z dostepnymi badaniami
       <ul>
-        {renderedTests}
+        {renderedTestCategories}
       </ul>
     </div>
   )
