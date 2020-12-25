@@ -6,7 +6,7 @@ dotenv.config();
 
 import { pool } from './db/index.js';
 
-import testFamiliesRouter from './routes/testFamilies.routes.js';
+import testCategoryRouter from './routes/testCategoryRouter.js';
 
 
 const app = express();
@@ -17,7 +17,8 @@ app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/tests', testFamiliesRouter);
+
+app.use('/categories', testCategoryRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });

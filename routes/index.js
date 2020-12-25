@@ -1,1 +1,1 @@
-export { default as testFamiliesRouter } from './testFamilies.routes';
+export { default as testCategoryRouter } from './testCategoryRouter';

@@ -1,1 +1,1 @@
-export { default as testFamiliesController } from './testFamilies.js';
+export { default as testCategoryController } from './testCategoryController.js';
