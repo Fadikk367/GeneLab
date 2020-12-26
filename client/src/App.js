@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import { Home, About, Examinations, OnlineResults, NotFound } from './pages';
+import { Home, About, Examinations, OnlineResults, AdministrationPanel, NotFound } from './pages';
 
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
@@ -18,6 +18,7 @@ const App = () => {
             <li><Link to='/'>Strona główna</Link></li>
             <li><Link to='/examinations'>Badania</Link></li>
             <li><Link to='/results'>Wyniki online</Link></li>
+            <li><Link to='/admin-panel'>Panel Administracyjny</Link></li>
             <li><Link to='/about'>O nas</Link></li>
           </ul>
         </nav>
@@ -29,6 +30,7 @@ const App = () => {
             <Route path='/' exact component={Home} />
             <Route path='/examinations' exact component={Examinations} />
             <Route path='/results' exact component={OnlineResults} />
+            <Route path='/admin-panel' exact component={AdministrationPanel} />
             <Route path='/about' component={About} />
             <Route component={NotFound} />
           </Switch>
