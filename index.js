@@ -4,11 +4,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { pool } from './db/index.js';
 
 import testCategoryRouter from './routes/testCategoryRouter.js';
 import biologicalMaterialRouter from './routes/biologicalMaterialRouter.js';
 import diagnosticLaboratoryRouter from './routes/diagnosticLaboratoryRouter.js';
+import testRouter from './routes/testRouter.js';
 
 
 const app = express();
@@ -23,6 +23,7 @@ app.use(express.json());
 app.use('/categories', testCategoryRouter);
 app.use('/materials', biologicalMaterialRouter);
 app.use('/laboratories', diagnosticLaboratoryRouter);
+app.use('/tests', testRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });
