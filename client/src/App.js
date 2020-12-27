@@ -30,7 +30,7 @@ const App = () => {
             <Route path='/' exact component={Home} />
             <Route path='/examinations' exact component={Examinations} />
             <Route path='/results' exact component={OnlineResults} />
-            <Route path='/admin-panel' exact component={AdministrationPanel} />
+            <Route path='/admin-panel' component={AdministrationPanel} />
             <Route path='/about' component={About} />
             <Route component={NotFound} />
           </Switch>
