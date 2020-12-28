@@ -3,7 +3,13 @@ import { pool } from '../db/index.js';
 
 const getAllTests = async (req, res, next) => {
   try {
-    const result = await pool.query('SELECT id, nazwa as name, cena as price, kategoria_id as categoryId FROM badanie JOIN ');
+    const result = await pool.query(`
+      SELECT BAD.id, BAD.nazwa as name, cena as price, wartosc_min as minValue, wartosc_max as maxValue, jednostka as unit, MAT.nazwa as bioMaterial, PRAC_DIAG.nazwa as laboratory 
+      FROM badanie BAD
+      JOIN kategoria_badan KAT_BAD ON BAD.kategoria_id = KAT_BAD.id
+      JOIN material_biologiczny MAT ON BAD.material_id = MAT.id
+      JOIN pracownia_diagnostyczna PRAC_DIAG ON BAD.pracownia_id = PRAC_DIAG.id
+    `);
     res.json({ tests: result.rows });
   } catch(err) {
     console.error(err);
@@ -58,7 +64,7 @@ const createTest = async (req, res, next) => {
       VALUES 
       ($1, $2, $3, $4, $5, $6, $7, $8) 
       RETURNING *`, 
-      [testName, minValue, maxValue, unit, price, categoryId, materialId, laboratoryId]
+      [name, minValue, maxValue, unit, price, categoryId, materialId, laboratoryId]
     );
 
     res.json({ createdTest: result.rows[0] });
