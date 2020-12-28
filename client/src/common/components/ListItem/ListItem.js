@@ -7,6 +7,14 @@ export const ListItem = styled.li`
 
   font-size: 1.1.em;
 
+  ${props => props.header ? 'font-weight: bold;' : null}
+  ${props => props.header ? 'background-color: lightskyblue !important;' : null}
+  ${props => props.header ? `
+    & > :last-child {
+      visibility: hidden;
+    }
+  ` : null}
+
   &:nth-child(odd) {
     background-color: #f2f2f2;
   }
