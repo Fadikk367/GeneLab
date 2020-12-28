@@ -1,10 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-import { FormHeader, Form, Input, InputLabel, Select, ErrorMessage, SubmitButton } from './AddTestForm.css';
+import { FormHeader, Form, Input, InputLabel, SubmitButton } from './AddTestForm.css';
 import { RelationSelect } from '..';
+
+import { createTest } from 'state/test/testActions'
 
 
 const AddTestForm = () => {
@@ -12,10 +14,13 @@ const AddTestForm = () => {
   const laboratories = useSelector(state => state.diagnosticLaboratory.laboratoryList);
   const categories = useSelector(state => state.testCategory.categoryList);
 
+  const dispatch = useDispatch();
+
   const { register, handleSubmit, errors } = useForm();
 
   const handleSubmitForm = handleSubmit(async formData => {
-    console.log(formData);
+    dispatch(createTest(formData));
+    // console.log(formData);
     // try {
     //   const response = await axios.post('/tests', formData);
     //   console.log(response);
