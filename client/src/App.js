@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import { Home, About, Examinations, OnlineResults, AdministrationPanel, NotFound } from './pages';
+import { Home, TestCatalog, About, OnlineResults, AdministrationPanel, NotFound } from './pages';
 
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
@@ -16,7 +16,7 @@ const App = () => {
         <nav>
           <ul>
             <li><Link to='/'>Strona główna</Link></li>
-            <li><Link to='/examinations'>Badania</Link></li>
+            <li><Link to='/test-catalog'>Katalog Badań</Link></li>
             <li><Link to='/results'>Wyniki online</Link></li>
             <li><Link to='/admin-panel'>Panel Administracyjny</Link></li>
             <li><Link to='/about'>O nas</Link></li>
@@ -28,7 +28,7 @@ const App = () => {
         <Page>
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/examinations' exact component={Examinations} />
+            <Route path='/test-catalog' exact component={TestCatalog} />
             <Route path='/results' exact component={OnlineResults} />
             <Route path='/admin-panel' component={AdministrationPanel} />
             <Route path='/about' component={About} />
