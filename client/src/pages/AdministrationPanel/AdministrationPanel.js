@@ -8,11 +8,13 @@ import {
   TestCategoriesPanel,
   TestPanel,
 } from '../';
-import { } from './components';
+import { PanelTile } from './components';
+import { PanelsSection } from './AdministrationPanel.css';
 
 import { getAllBiologicalMaterials } from 'state/biologicalMaterial/biologicalMaterialActions';
 import { getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
 import { getAllTestCategories } from 'state/testCategory/testCategoryActions';
+import { getAllTests } from 'state/test/testActions';
 
 
 const AdministrationPanel = () => {
@@ -24,11 +26,20 @@ const AdministrationPanel = () => {
     dispatch(getAllBiologicalMaterials());
     dispatch(getAllDiagnosticLaboratories());
     dispatch(getAllTestCategories());
+    dispatch(getAllTests());
   }, []);
 
   useEffect(() => {
+    const suffixesBySubpages = {
+      'tests': '/Badania',
+      'laboratories': '/Pracownie diagnostyczne',
+      'materials': '/Materiały biologiczne',
+      'test-categories': '/Kategorie badań',
+      'admin-panel': '',
+    }
+
     const index = location.pathname.lastIndexOf('/');
-    setSuffix('/' + location.pathname.substring(index+1));
+    setSuffix(suffixesBySubpages[location.pathname.substring(index+1)]);
   }, [location.pathname])
 
   return (
@@ -37,12 +48,12 @@ const AdministrationPanel = () => {
       <hr/>
       <Switch>
         <Route path='/admin-panel' exact>
-          <ul>
-            <li><Link to='/admin-panel/tests'>Test Panel</Link></li>
-            <li><Link to='/admin-panel/materials'>Materials Panel</Link></li>
-            <li><Link to='/admin-panel/laboratories'>Laboratories Panel</Link></li>
-            <li><Link to='/admin-panel/test-categories'>Test categoires panel</Link></li>
-          </ul>
+          <PanelsSection>
+            <PanelTile panelName='Badania' link='/admin-panel/tests'/>
+            <PanelTile panelName='Materiały biologiczne' link='/admin-panel/materials'/>
+            <PanelTile panelName='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
+            <PanelTile panelName='Kategorie badań' link='/admin-panel/test-categories'/>
+          </PanelsSection>
         </Route>
         <Route path='/admin-panel/tests' component={TestPanel}/>
         <Route path='/admin-panel/materials' component={BiologicalMaterialsPanel}/>
