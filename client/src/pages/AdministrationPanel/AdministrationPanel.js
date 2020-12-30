@@ -7,6 +7,7 @@ import {
   DiagnosticLaboratoriesPanel, 
   TestCategoriesPanel,
   TestPanel,
+  PositionsPanel,
 } from '../';
 import { PanelTile } from './components';
 import { PanelsSection } from './AdministrationPanel.css';
@@ -35,6 +36,7 @@ const AdministrationPanel = () => {
       'laboratories': '/Pracownie diagnostyczne',
       'materials': '/Materiały biologiczne',
       'test-categories': '/Kategorie badań',
+      'positions': '/Stanowiska',
       'admin-panel': '',
     }
 
@@ -53,12 +55,14 @@ const AdministrationPanel = () => {
             <PanelTile panelName='Materiały biologiczne' link='/admin-panel/materials'/>
             <PanelTile panelName='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
             <PanelTile panelName='Kategorie badań' link='/admin-panel/test-categories'/>
+            <PanelTile panelName='Stanowiska' link='/admin-panel/positions'/>
           </PanelsSection>
         </Route>
         <Route path='/admin-panel/tests' component={TestPanel}/>
         <Route path='/admin-panel/materials' component={BiologicalMaterialsPanel}/>
         <Route path='/admin-panel/laboratories' component={DiagnosticLaboratoriesPanel}/>
         <Route path='/admin-panel/test-categories' component={TestCategoriesPanel}/>
+        <Route path='/admin-panel/positions' component={PositionsPanel}/>
       </Switch>
     </div>
   )

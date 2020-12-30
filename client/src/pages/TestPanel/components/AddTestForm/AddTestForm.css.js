@@ -28,6 +28,7 @@ export const Input = styled.input`
 
 export const InputLabel = styled.label`
   display: flex;
+  flex-direction: ${props => props.vertical ? 'column' : 'row'};
   justify-content: space-between;
   font-size: 1.1em;
 
@@ -44,8 +45,12 @@ export const Select = styled.select`
 `;
 
 export const SubmitButton = styled.button`
-  padding: 5px;
-  border-radius: 3px;
-  font-size: 1.1em;
+  padding: 7px;
+  /* border-radius: 3px; */
+  font-size: 1.2em;
+  background-color: #15857e;
+  border: none;
+  outline: none;
+  color: white;
   cursor: pointer;
 `;

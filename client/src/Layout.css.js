@@ -19,6 +19,8 @@ export const Center = styled.div`
 export const Header = styled.header`
   height: 60px;
   background-color: lightcyan;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const Page = styled.main`
