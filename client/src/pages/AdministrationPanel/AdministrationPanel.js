@@ -8,6 +8,7 @@ import {
   TestCategoriesPanel,
   TestPanel,
   EmployeePositionPanel,
+  EmployeePanel,
 } from '../';
 import { PanelTile } from './components';
 import { PanelsSection } from './AdministrationPanel.css';
@@ -37,6 +38,7 @@ const AdministrationPanel = () => {
       'materials': '/Materiały biologiczne',
       'test-categories': '/Kategorie badań',
       'positions': '/Stanowiska',
+      'employees': '/Pracownicy',
       'admin-panel': '',
     }
 
@@ -56,6 +58,7 @@ const AdministrationPanel = () => {
             <PanelTile panelName='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
             <PanelTile panelName='Kategorie badań' link='/admin-panel/test-categories'/>
             <PanelTile panelName='Stanowiska' link='/admin-panel/positions'/>
+            <PanelTile panelName='Pracownicy' link='/admin-panel/employees'/>
           </PanelsSection>
         </Route>
         <Route path='/admin-panel/tests' component={TestPanel}/>
@@ -63,6 +66,7 @@ const AdministrationPanel = () => {
         <Route path='/admin-panel/laboratories' component={DiagnosticLaboratoriesPanel}/>
         <Route path='/admin-panel/test-categories' component={TestCategoriesPanel}/>
         <Route path='/admin-panel/positions' component={EmployeePositionPanel}/>
+        <Route path='/admin-panel/employees' component={EmployeePanel}/>
       </Switch>
     </div>
   )

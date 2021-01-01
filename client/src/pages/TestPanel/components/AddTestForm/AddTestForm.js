@@ -70,4 +70,4 @@ const AddTestForm = () => {
   )
 }
 
-export default AddTestForm
+export default AddTestForm;
