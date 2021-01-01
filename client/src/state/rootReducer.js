@@ -5,6 +5,7 @@ import biologicalMaterialReducer from './biologicalMaterial/biologicalMaterialRe
 import diagnosticLaboratoryReducer from './diagnosticLaboratory/diagnosticLaboratoryReducer';
 import testReducer from './test/testReducer';
 import clientBasketReducer from './clientBasket/clientBasketReducer';
+import employeePositionReducer from './employeePosition/employeePositionReducer';
 
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   diagnosticLaboratory: diagnosticLaboratoryReducer,
   test: testReducer,
   basket: clientBasketReducer,
+  employeePosition: employeePositionReducer,
 });
 
 export default rootReducer;
