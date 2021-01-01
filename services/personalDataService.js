@@ -6,8 +6,8 @@ const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }) =
     `INSERT INTO dane_osobowe 
     (imie, nazwisko, pesel, data_urodzenia) 
     VALUES 
-    ($1, $2. $3, $4)
-    RETURNING imie as firstName, nazwisko as lastName, pesel, data_urodzenia as dateOfBirth`,
+    ($1, $2, $3, $4)
+    RETURNING id, imie as firstName, nazwisko as lastName, pesel, data_urodzenia as dateOfBirth`,
     [firstName, lastName, pesel, dateOfBirth]
   );
 
