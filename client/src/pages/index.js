@@ -7,6 +7,6 @@ export { default as AdministrationPanel } from './AdministrationPanel';
 export { default as TestCategoriesPanel } from './TestCategoriesPanel';
 export { default as BiologicalMaterialsPanel } from './BiologicalMaterialsPanel';
 export { default as DiagnosticLaboratoriesPanel } from './DiagnosticLaboratoriesPanel';
-export { default as PositionsPanel } from './PositionsPanel';
+export { default as EmployeePositionPanel } from './EmployeePositionsPanel';
 export { default as TestPanel } from './TestPanel';
 export { default as NotFound } from './NotFound';

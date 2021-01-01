@@ -7,7 +7,7 @@ import {
   DiagnosticLaboratoriesPanel, 
   TestCategoriesPanel,
   TestPanel,
-  PositionsPanel,
+  EmployeePositionPanel,
 } from '../';
 import { PanelTile } from './components';
 import { PanelsSection } from './AdministrationPanel.css';
@@ -62,7 +62,7 @@ const AdministrationPanel = () => {
         <Route path='/admin-panel/materials' component={BiologicalMaterialsPanel}/>
         <Route path='/admin-panel/laboratories' component={DiagnosticLaboratoriesPanel}/>
         <Route path='/admin-panel/test-categories' component={TestCategoriesPanel}/>
-        <Route path='/admin-panel/positions' component={PositionsPanel}/>
+        <Route path='/admin-panel/positions' component={EmployeePositionPanel}/>
       </Switch>
     </div>
   )
