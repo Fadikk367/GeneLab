@@ -12,10 +12,11 @@ const getAllEmployeePositions = async (req, res, next) => {
 
 const createEmployeePosition = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { positionName, positionSalary, positionDescription } = req.body;
   
     const result = await pool.query('INSERT INTO stanowisko (nazwa, pensja, opis) VALUES ($1, $2, $3) RETURNING id, nazwa as name, pensja as salary, opis as description', [positionName, positionSalary, positionDescription]);
-    res.json({ createdemployeePosition: result.rows[0] });
+    res.json({ createdEmployeePosition: result.rows[0] });
   } catch(err) {
     console.error(err);
   }

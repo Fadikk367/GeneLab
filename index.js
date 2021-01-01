@@ -9,6 +9,7 @@ import testCategoryRouter from './routes/testCategoryRouter.js';
 import biologicalMaterialRouter from './routes/biologicalMaterialRouter.js';
 import diagnosticLaboratoryRouter from './routes/diagnosticLaboratoryRouter.js';
 import testRouter from './routes/testRouter.js';
+import employeePositionRouter from './routes/employeePositionRouter.js';
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/categories', testCategoryRouter);
 app.use('/materials', biologicalMaterialRouter);
 app.use('/laboratories', diagnosticLaboratoryRouter);
 app.use('/tests', testRouter);
+app.use('/positions', employeePositionRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });

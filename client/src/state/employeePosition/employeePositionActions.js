@@ -46,8 +46,8 @@ export const getAllEmployeePositions = () => async dispatch => {
 }
 
 
-export const createEmployeePosition = (positionsName, positionSalary, positionDescription) => async dispatch => {
-  return axios.post('/positions', { positionsName, positionSalary, positionDescription })
+export const createEmployeePosition = (positionName, positionSalary, positionDescription) => async dispatch => {
+  return axios.post('/positions', { positionName, positionSalary, positionDescription })
     .then(response => {
       console.log(response);
 
