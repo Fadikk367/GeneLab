@@ -4,8 +4,8 @@ import personalDataService from '../services/personalDataService.js';
 
 const getAllEmployees = async (req, res, next) => {
   try {
-    const result = await pool.query('SELECT id, nazwa as name, pensja as salary, opis as description FROM pracownik');
-    res.json({ employeePositions: result.rows });
+    const result = await pool.query('SELECT * from pracownik_komplet_informacji');
+    res.json({ employees: result.rows });
   } catch(err) {
     console.error(err);
   }
