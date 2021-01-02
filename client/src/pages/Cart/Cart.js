@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { TestList } from './components';
+import { TestList, TotalPrice } from './components';
 
 
 const Cart = () => {
@@ -11,6 +11,7 @@ const Cart = () => {
     <div>
       <h2>Koszyk wybranych badań</h2>
       <TestList items={productsInBasket} />
+      <TotalPrice products={productsInBasket}/>
     </div>
   )
 }
