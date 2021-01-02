@@ -1,11 +1,13 @@
 import {
   ADD_PRODUCT_TO_BASKET,
   REMOVE_PRODUCT_FROM_BASKET,
+  ADD_PERSONAL_DATA,
 } from './clientBasketActions';
 
 
 const initialState = {
-  products: []
+  products: [],
+  personalData: null,
 }
 
 const clientBasketReducer = (state = initialState, action) => {
@@ -22,6 +24,11 @@ const clientBasketReducer = (state = initialState, action) => {
       return {
         ...state,
         products: state.products.filter(product => product.id !== removedProductId)
+      }
+    case ADD_PERSONAL_DATA:
+      return {
+        ...state,
+        personalData: action.payload.personalData,
       }
     default:
       return state;

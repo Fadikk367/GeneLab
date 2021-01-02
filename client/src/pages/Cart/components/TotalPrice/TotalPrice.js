@@ -11,7 +11,7 @@ const TotalPrice = ({ products = [] }) => {
   return (
     <FlexRow>
       Suma:
-      <span>{sum}</span>
+      <span>{sum.toFixed(2)}</span>
     </FlexRow>
   )
 }
