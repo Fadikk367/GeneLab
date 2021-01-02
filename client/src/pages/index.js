@@ -8,5 +8,6 @@ export { default as TestCategoriesPanel } from './TestCategoriesPanel';
 export { default as BiologicalMaterialsPanel } from './BiologicalMaterialsPanel';
 export { default as DiagnosticLaboratoriesPanel } from './DiagnosticLaboratoriesPanel';
 export { default as EmployeePositionPanel } from './EmployeePositionsPanel';
+export { default as EmployeePanel } from './EmployeePanel';
 export { default as TestPanel } from './TestPanel';
 export { default as NotFound } from './NotFound';

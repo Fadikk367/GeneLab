@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { AddEmployeeForm } from './components';
+import { AddEmployeeForm, EmployeeList } from './components';
 
 import { getAllEmployees } from 'state/employee/employeeActions';
 
@@ -18,6 +18,7 @@ const EmployeePanel = () => {
     <div>
       emp panel
       <AddEmployeeForm />
+      <EmployeeList employees={employees}/>
     </div>
   )
 }
