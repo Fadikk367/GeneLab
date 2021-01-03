@@ -25,7 +25,7 @@ const OrderSummary = ({ products }) => {
         : (<p>Nie wprowadzono!</p>)
       }
 
-      <button disabled={personalData ? false : true} onClick={() => dispatch(confirmOrder())}>Złóż zamówienie</button>
+      <button disabled={personalData ? false : true} onClick={() => dispatch(confirmOrder(personalData, products))}>Złóż zamówienie</button>
     </div>
   )
 }

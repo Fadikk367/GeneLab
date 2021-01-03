@@ -36,8 +36,8 @@ export const addPersonalData = personalData => {
   }
 }
 
-export const confirmOrder = () => async dispatch => {
-  return axios.post('/orders')
+export const confirmOrder = (personalData, products) => async dispatch => {
+  return axios.post('/orders', { personalData, products })
     .then(response => {
       console.log(response);
 
