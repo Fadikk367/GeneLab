@@ -1,8 +1,19 @@
 import { pool } from '../db/index.js';
 
 
-const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }) => {
-  const result = await pool.query(
+const findByPesel = async (pesel, client = pool) => {
+  const result = await client.query(
+    `SELECT id, imie as firstName, nazwisko as lastName, data_urodzenia as dateOfBirth, pesel 
+    FROM dane_osobowe
+    WHERE pesel = $1`,
+    [pesel]
+  );
+
+  return result.rows[0];
+}
+
+const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }, client = pool) => {
+  const result = await client.query(
     `INSERT INTO dane_osobowe 
     (imie, nazwisko, pesel, data_urodzenia) 
     VALUES 
@@ -23,6 +34,7 @@ const deletePersonalData = async (personalDataId) => {
 }
 
 export default {
+  findByPesel,
   createPersonalData,
   deletePersonalData,
 }

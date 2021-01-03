@@ -11,6 +11,7 @@ import diagnosticLaboratoryRouter from './routes/diagnosticLaboratoryRouter.js';
 import testRouter from './routes/testRouter.js';
 import employeePositionRouter from './routes/employeePositionRouter.js';
 import employeeRouter from './routes/employeeRouter.js';
+import orderRouter from './routes/orderRouter.js';
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/laboratories', diagnosticLaboratoryRouter);
 app.use('/tests', testRouter);
 app.use('/positions', employeePositionRouter);
 app.use('/employees', employeeRouter);
+app.use('/orders', orderRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });
