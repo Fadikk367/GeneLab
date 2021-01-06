@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Tile = styled.article`
+export const CardWrapper = styled.article`
   /* text-decoration: none; */
   color: black;
 
@@ -14,7 +14,7 @@ export const Tile = styled.article`
 `;
 
 
-export const TileHeader = styled.h3`
+export const Title = styled.h3`
   background-color: #2fad98;
   font-size: 1.3em;
   color: white;
@@ -22,6 +22,6 @@ export const TileHeader = styled.h3`
   padding: 10px;
 `;
 
-export const TileContent = styled.div`
+export const CardContent = styled.div`
   padding: 10px;
 `;

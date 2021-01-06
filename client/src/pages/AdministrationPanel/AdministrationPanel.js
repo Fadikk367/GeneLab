@@ -10,7 +10,8 @@ import {
   EmployeePositionPanel,
   EmployeePanel,
 } from '../';
-import { PanelTile } from './components';
+
+import { Card } from 'common/components';
 import { PanelsSection } from './AdministrationPanel.css';
 
 import { getAllBiologicalMaterials } from 'state/biologicalMaterial/biologicalMaterialActions';
@@ -53,12 +54,12 @@ const AdministrationPanel = () => {
       <Switch>
         <Route path='/admin-panel' exact>
           <PanelsSection>
-            <PanelTile panelName='Badania' link='/admin-panel/tests'/>
-            <PanelTile panelName='Materiały biologiczne' link='/admin-panel/materials'/>
-            <PanelTile panelName='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
-            <PanelTile panelName='Kategorie badań' link='/admin-panel/test-categories'/>
-            <PanelTile panelName='Stanowiska' link='/admin-panel/positions'/>
-            <PanelTile panelName='Pracownicy' link='/admin-panel/employees'/>
+            <Card title='Badania' link='/admin-panel/tests'/>
+            <Card title='Materiały biologiczne' link='/admin-panel/materials'/>
+            <Card title='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
+            <Card title='Kategorie badań' link='/admin-panel/test-categories'/>
+            <Card title='Stanowiska' link='/admin-panel/positions'/>
+            <Card title='Pracownicy' link='/admin-panel/employees'/>
           </PanelsSection>
         </Route>
         <Route path='/admin-panel/tests' component={TestPanel}/>
