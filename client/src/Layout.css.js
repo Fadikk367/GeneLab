@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Layout = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
 `;
 
@@ -25,6 +25,7 @@ export const Header = styled.header`
 
 export const Page = styled.main`
   flex-grow: 1;
+  overflow-y: scroll;
 `;
 
 export const Footer = styled.footer`
