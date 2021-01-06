@@ -1,4 +1,5 @@
 import { pool } from '../db/index.js';
+import orderedExaminationsService from '../services/orderedExaminationsService.js';
 
 
 const getAllLaboratories = async (req, res, next) => {
@@ -7,6 +8,28 @@ const getAllLaboratories = async (req, res, next) => {
     res.json({ diagnosticLaboratories: result.rows });
   } catch(err) {
     console.error(err);
+  }
+}
+
+const getPendingExaminations = async (req, res, next) => {
+  const laboratoryId = req.parmas.laboratoryId;
+
+  try {
+    const pendingExaminations = await orderedExaminationsService.getByLaboratoryId(laboratoryId);
+    res.json({ pendingExaminations });
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
+}
+
+const getCurrentWorkOccupancy = async (req, res, next) => {
+  try {
+    const currentOccupancy = await orderedExaminationsService.getCurrentWorkOccupancy();
+    res.json({ currentOccupancy });
+  } catch(err) {
+    console.error(err);
+    next(err);
   }
 }
 
@@ -46,8 +69,10 @@ const updateLaboratory = async (req, res, next) => {
 
 
 export default {
-  createLaboratory,
   getAllLaboratories,
+  getPendingExaminations,
+  getCurrentWorkOccupancy,
+  createLaboratory,
   deleteLaboratory,
   updateLaboratory,
 }
