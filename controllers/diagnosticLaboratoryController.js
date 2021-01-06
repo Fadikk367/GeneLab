@@ -16,7 +16,7 @@ const getPendingExaminations = async (req, res, next) => {
 
   try {
     const pendingExaminations = await orderedExaminationsService.getByLaboratoryId(laboratoryId);
-    res.json({ pendingExaminations });
+    res.json({ pendingExaminations, laboratoryId });
   } catch(err) {
     console.error(err);
     next(err);
@@ -25,8 +25,8 @@ const getPendingExaminations = async (req, res, next) => {
 
 const getCurrentWorkOccupancy = async (req, res, next) => {
   try {
-    const currentOccupancy = await orderedExaminationsService.getCurrentWorkOccupancy();
-    res.json({ currentOccupancy });
+    const workOccupancyById = await orderedExaminationsService.getCurrentWorkOccupancy();
+    res.json({ workOccupancyById });
   } catch(err) {
     console.error(err);
     next(err);
