@@ -7,11 +7,12 @@ export const Layout = styled.div`
 
 export const Sidebar = styled.aside`
   width: 300px;
+  min-width: 300px;
   background-color: lightblue;
 `;
 
 export const Center = styled.div`
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
 `;
