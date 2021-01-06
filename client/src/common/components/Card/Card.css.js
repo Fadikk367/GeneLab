@@ -22,6 +22,10 @@ export const Title = styled.h3`
   padding: 10px;
 `;
 
+
 export const CardContent = styled.div`
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
