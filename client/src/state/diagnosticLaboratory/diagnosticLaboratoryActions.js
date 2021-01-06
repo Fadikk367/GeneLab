@@ -20,6 +20,16 @@ export const UPDATE_DIAGNOSTIC_LABORATORY_FAILURE = 'UPDATE_DIAGNOSTIC_LABORATOR
 export const DELETE_DIAGNOSTIC_LABORATORY_SUCCESS = 'DELETE_DIAGNOSTIC_LABORATORY_SUCCESS';
 export const DELETE_DIAGNOSTIC_LABORATORY_FAILURE = 'DELETE_DIAGNOSTIC_LABORATORY_FAILURE';
 
+// export const GET_WORK_OCCUPANCY = 'GET_WORK_OCCUPANCY';
+// export const GET_WORK_OCCUPANCY_REQUEST = 'GET_WORK_OCCUPANCY_REQUEST';
+export const GET_WORK_OCCUPANCY_SUCCESS = 'GET_WORK_OCCUPANCY_SUCCESS';
+export const GET_WORK_OCCUPANCY_FAILURE = 'GET_WORK_OCCUPANCY_FAILURE';
+
+// export const GET_PENDING_EXAMINATIONS = 'GET_PENDING_EXAMINATIONS';
+// export const GET_PENDING_EXAMINATIONS_REQUEST = 'GET_PENDING_EXAMINATIONS_REQUEST';
+export const GET_PENDING_EXAMINATIONS_SUCCESS = 'GET_PENDING_EXAMINATIONS_SUCCESS';
+export const GET_PENDING_EXAMINATIONS_FAILURE = 'GET_PENDING_EXAMINATIONS_FAILURE';
+
 
 export const getAllDiagnosticLaboratories = () => async dispatch => {
   return axios.get('/laboratories')
@@ -93,4 +103,48 @@ export const deleteDiagnosticLaboratory = laboratoryId => async dispatch => {
 
       return Promise.reject();
     });
+}
+
+
+export const getLaboratoriesWorkOccupancy = () => async dispatch => {
+  return axios.get('/laboratories/occupancy')
+    .then(res => {
+      dispatch({
+        type: GET_WORK_OCCUPANCY_SUCCESS,
+        payload: res.data.workOccupancyById,
+      });
+
+      return Promise.resolve();
+    })
+    .catch(err => {
+      console.error(err);
+      dispatch({
+        type: GET_WORK_OCCUPANCY_FAILURE,
+        payload: null,
+      });
+
+      return Promise.reject();
+    })
+}
+
+
+export const getPendingExaminations = laboratoryId => async dispatch => {
+  return axios.get(`/laboratories/${laboratoryId}/examinations`)
+    .then(res => {
+      dispatch({
+        type: GET_PENDING_EXAMINATIONS_SUCCESS,
+        payload: res.data,
+      });
+
+      return Promise.resolve();
+    })
+    .catch(err => {
+      console.error(err);
+      dispatch({
+        type: GET_PENDING_EXAMINATIONS_FAILURE,
+        payload: null,
+      });
+
+      return Promise.reject();
+    })
 }

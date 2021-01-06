@@ -2,6 +2,9 @@ import {
   GET_DIAGNOSTIC_LABORATORIES_SUCCESS,
   GET_DIAGNOSTIC_LABORATORIES_FAILURE,
 
+  GET_PENDING_EXAMINATIONS_SUCCESS,
+  GET_WORK_OCCUPANCY_SUCCESS,
+
   CREATE_DIAGNOSTIC_LABORATORY_SUCCESS,
   CREATE_DIAGNOSTIC_LABORATORY_FAILURE,
 
@@ -11,7 +14,9 @@ import {
 
 
 const initialState = {
-  laboratoryList: []
+  laboratoryList: [],
+  workOccupancyByLaboratoryId: {},
+  pendingExaminationsByLaboratoryId: {},
 }
 
 const diagnosticLaboratoryReducer = (state = initialState, action) => {
@@ -25,6 +30,24 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
       return {
         ...state,
         laboratoryList: []
+      }
+    case GET_WORK_OCCUPANCY_SUCCESS:
+      const workOccupancyByLaboratoryId = action.payload;
+
+      return {
+        ...state,
+        workOccupancyByLaboratoryId,
+      }
+    case GET_PENDING_EXAMINATIONS_SUCCESS:
+      const { pendingExaminations, laboratoryId } = action.payload;
+  
+      return {
+        ...state,
+        workOccupancyByLaboratoryId,
+        pendingExaminationsByLaboratoryId: {
+          ...state.pendingExaminationsByLaboratoryId,
+          [laboratoryId]: pendingExaminations
+        }
       }
     case CREATE_DIAGNOSTIC_LABORATORY_SUCCESS:
       const createdDiagnosticLaboratory = action.payload.createdDiagnosticLaboratory
