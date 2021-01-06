@@ -12,7 +12,7 @@ const getAllLaboratories = async (req, res, next) => {
 }
 
 const getPendingExaminations = async (req, res, next) => {
-  const laboratoryId = req.parmas.laboratoryId;
+  const laboratoryId = req.params.laboratoryId;
 
   try {
     const pendingExaminations = await orderedExaminationsService.getByLaboratoryId(laboratoryId);

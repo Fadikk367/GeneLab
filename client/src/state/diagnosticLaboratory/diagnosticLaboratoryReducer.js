@@ -43,7 +43,6 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
   
       return {
         ...state,
-        workOccupancyByLaboratoryId,
         pendingExaminationsByLaboratoryId: {
           ...state.pendingExaminationsByLaboratoryId,
           [laboratoryId]: pendingExaminations
