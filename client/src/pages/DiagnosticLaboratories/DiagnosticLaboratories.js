@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
+import { DiagnosticLaboratory } from 'pages';
 import { Card } from 'common/components';
 import { Layout, CardFooter } from './DiagnosticLaboratories.css';
 
@@ -20,7 +22,11 @@ const DiagnosticLaboratories = () => {
     const laboratoryWorkOccupancy = workOccupancyByLaboratoryId[laboratory.id];
 
     return (
-      <Card key={laboratory.id} title={laboratory.name} link={`/laboratories/${laboratory.name}?id=${laboratory.id}`}>
+      <Card 
+        key={laboratory.id} 
+        title={laboratory.name} 
+        link={`/laboratories/${laboratory.id}`}
+      >
         <CardFooter>Oczekujące badania: {laboratoryWorkOccupancy ? laboratoryWorkOccupancy.pending : 0}</CardFooter>
       </Card>
     )
@@ -28,10 +34,15 @@ const DiagnosticLaboratories = () => {
 
   return (
     <div>
-      <h2>Podstrona tylko dla pracownikó z kartami poszczególnych pracowni wraz z informacjami o ich obłożeniu pracą</h2>
-      <Layout>
-        {laboratoryCards}
-      </Layout>
+      <Switch>
+        <Route path='/laboratories' exact>
+          <h1>Pracownie</h1>
+          <Layout>
+            {laboratoryCards}
+          </Layout>
+        </Route>
+        <Route path='/laboratories/:laboratoryId' component={DiagnosticLaboratory}/>
+      </Switch>
     </div>
   )
 }
