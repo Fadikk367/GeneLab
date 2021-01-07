@@ -20,7 +20,7 @@ const DiagnosticLaboratories = () => {
     const laboratoryWorkOccupancy = workOccupancyByLaboratoryId[laboratory.id];
 
     return (
-      <Card key={laboratory.id} title={laboratory.name} link={`/laboratories/${laboratory.name}`}>
+      <Card key={laboratory.id} title={laboratory.name} link={`/laboratories/${laboratory.name}?id=${laboratory.id}`}>
         <CardFooter>Oczekujące badania: {laboratoryWorkOccupancy ? laboratoryWorkOccupancy.pending : 0}</CardFooter>
       </Card>
     )
