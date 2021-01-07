@@ -3,6 +3,7 @@ export { default as OnlineResults } from './OnlineResults';
 export { default as TestCatalog } from './TestCatalog';
 export { default as DiagnosticLaboratories } from './DiagnosticLaboratories';
 export { default as DiagnosticLaboratory } from './DiagnosticLaboratory';
+export { default as Login } from './Login';
 export { default as Cart } from './Cart';
 export { default as About } from './About';
 export { default as AdministrationPanel } from './AdministrationPanel';

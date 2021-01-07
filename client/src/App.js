@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories } from './pages';
+import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories, Login } from './pages';
 
 import { BasketPreview } from 'common/components';
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
@@ -37,6 +37,7 @@ const App = () => {
             <Route path='/results' exact component={OnlineResults} />
             <Route path='/laboratories' component={DiagnosticLaboratories} />
             <Route path='/admin-panel' component={AdministrationPanel} />
+            <Route path='/login' component={Login} />
             <Route path='/cart' component={Cart} />
             <Route path='/about' component={About} />
             <Route component={NotFound} />
