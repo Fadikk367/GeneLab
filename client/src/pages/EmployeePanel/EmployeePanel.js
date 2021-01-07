@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AddEmployeeForm, EmployeeList } from './components';
 
 import { getAllEmployees } from 'state/employee/employeeActions';
+import { getAllEmployeePositions } from 'state/employeePosition/employeePositionActions';
 
 
 const EmployeePanel = () => {
@@ -11,7 +12,8 @@ const EmployeePanel = () => {
   const employees = useSelector(state => state.employee.employeeList);
 
   useEffect(() => {
-    dispatch(getAllEmployees())
+    dispatch(getAllEmployees());
+    dispatch(getAllEmployeePositions());
   }, [dispatch]);
 
   return (
