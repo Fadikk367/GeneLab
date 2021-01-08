@@ -7,6 +7,7 @@ import testReducer from './test/testReducer';
 import clientBasketReducer from './clientBasket/clientBasketReducer';
 import employeePositionReducer from './employeePosition/employeePositionReducer';
 import employeeReducer from './employee/employeeReducer';
+import authReducer from './auth/authReducer';
 
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   basket: clientBasketReducer,
   employeePosition: employeePositionReducer,
   employee: employeeReducer,
+  auth: authReducer,
 });
 
 export default rootReducer;
