@@ -1,5 +1,6 @@
 import { pool } from '../db/index.js';
 import personalDataService from '../services/personalDataService.js';
+import authService from '../services/authService.js';
 
 
 const getAllEmployees = async (req, res, next) => {
@@ -13,25 +14,24 @@ const getAllEmployees = async (req, res, next) => {
 
 const createEmployee = async (req, res, next) => {
   try {
+    const client = await pool.connect();
     // const { firstName, lastName, pesel, dateOfBirth } = req.body.personalData;
     const { positionId, email, password } = req.body.employeeData;
 
-    const personalData = await personalDataService.createPersonalData(req.body.personalData);
+    const personalData = await personalDataService.createPersonalData(req.body.personalData, client);
 
   
-    const result = await pool.query(
-      `INSERT INTO pracownik 
-      (dane_osobowe_id, stanowisko_id, email, haslo, data_zatrudnienia) 
-      VALUES 
-      ($1, $2, $3, $4, $5) 
-      RETURNING id, email`, 
-      [personalData.id, positionId, email, password, '2020-07-12']
-    );
+    const { id } = await authService.registerEmployee({
+      personalDataId: personalData.id,
+      positionId,
+      email,
+      password,
+    }, client);
 
     res.json({ 
       createdEmployee: {
-        id: result.rows[0].id,
-        email: result.rows[0].id,
+        id,
+        email,
         ...personalData,
       } 
     });
