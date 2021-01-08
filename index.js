@@ -12,6 +12,7 @@ import testRouter from './routes/testRouter.js';
 import employeePositionRouter from './routes/employeePositionRouter.js';
 import employeeRouter from './routes/employeeRouter.js';
 import orderRouter from './routes/orderRouter.js';
+import authRouter from './routes/authRouter.js';
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/tests', testRouter);
 app.use('/positions', employeePositionRouter);
 app.use('/employees', employeeRouter);
 app.use('/orders', orderRouter);
+app.use('/auth', authRouter);
 
 app.get('*', (reg, res) => {
   res.sendFile('client/build/index.html', { root: './' });
