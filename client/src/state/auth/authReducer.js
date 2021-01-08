@@ -5,9 +5,9 @@ import {
 
 
 const initialState = {
-  isAuthentificated: false,
-  token: null,
-  user: null,
+  isAuthentificated: isLoggedIn(),
+  token: getTokenFromLocalStorage() || null,
+  user: getUserDataFromLocalStorage() || null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -15,6 +15,9 @@ const authReducer = (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       const { authToken, user } = action.payload;
 
+      saveAuthTokenInLocalStorage(authToken);
+      saveUserDataInLocalStorage(user);
+      
       return {
         ...state,
         isAuthentificated: true,
@@ -34,3 +37,27 @@ const authReducer = (state = initialState, action) => {
 }
 
 export default authReducer;
+
+
+function getTokenFromLocalStorage() {
+  return localStorage.getItem('authToken')
+}
+
+function getUserDataFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+function isLoggedIn() {
+  return localStorage.getItem('authToken') && JSON.parse(localStorage.getItem('user'));
+}
+
+function saveUserDataInLocalStorage(userData) {
+  localStorage.setItem(
+    'user',
+    JSON.stringify(userData),
+  );
+}
+
+function saveAuthTokenInLocalStorage(token) {
+  localStorage.setItem('authToken', token);
+}
