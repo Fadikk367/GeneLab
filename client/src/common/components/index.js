@@ -4,3 +4,4 @@ export { default as BlockLink } from './BlockLink';
 export { default as BasketPreview } from './BasketPreview';
 export { default as Card } from './Card';
 export { default as Modal } from './Modal';
+export { default as ProtectedRoute } from './ProtectedRoute';
