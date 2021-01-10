@@ -2,6 +2,20 @@ import { pool } from '../db/index.js';
 import personalDataService from '../services/personalDataService.js';
 
 
+const checkOrderStatus = async (req, res, next) => {
+  const orderId = req.params.orderId;
+
+  try {
+    const result = await pool.query(`SELECT progres_zlecenia_badan($1) as progres`, [orderId]);
+    const progres = result.rows[0].progres;
+    res.json({ progres, orderId });
+  } catch(err) {
+    if (err.code === 'P0001')
+      res.status(400).json({ message: err.message });
+  }
+}
+
+
 const createOrder = async (req, res, next) => {
   const { personalData, products } = req.body;
   console.log(req.body);
@@ -55,5 +69,6 @@ const createOrder = async (req, res, next) => {
 
 
 export default {
+  checkOrderStatus,
   createOrder,
 }
