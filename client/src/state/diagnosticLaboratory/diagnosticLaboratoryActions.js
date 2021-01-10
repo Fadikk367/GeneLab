@@ -30,6 +30,9 @@ export const GET_WORK_OCCUPANCY_FAILURE = 'GET_WORK_OCCUPANCY_FAILURE';
 export const GET_PENDING_EXAMINATIONS_SUCCESS = 'GET_PENDING_EXAMINATIONS_SUCCESS';
 export const GET_PENDING_EXAMINATIONS_FAILURE = 'GET_PENDING_EXAMINATIONS_FAILURE';
 
+export const CREATE_EXAMINATION_RESULT_SUCCESS = 'CREATE_EXAMINATION_RESULT_SUCCESS';
+export const CREATE_EXAMINATION_RESULT_FAILURE = 'CREATE_EXAMINATION_RESULT_FAILURE';
+
 
 export const getAllDiagnosticLaboratories = () => async dispatch => {
   return axios.get('/laboratories')
@@ -143,6 +146,41 @@ export const getPendingExaminations = laboratoryId => async dispatch => {
       dispatch({
         type: GET_PENDING_EXAMINATIONS_FAILURE,
         payload: null,
+      });
+
+      return Promise.reject();
+    })
+}
+
+
+export const createExaminationResult = (examinationId, result) => async (dispatch, getState) => {
+  const auth = getState().auth;
+  if (!auth.isAuthentificated || !auth.user) {
+    return Promise.reject();
+  }
+
+  const token = auth.token;
+  console.log({ token });
+  const employeeId = auth.user.id;
+
+  const headers = {
+    'Authorization': token,
+  }
+
+  return axios.post(`/tests/results/${examinationId}`, { employeeId, result }, { headers })
+    .then(res => {
+      dispatch({
+        type: CREATE_EXAMINATION_RESULT_SUCCESS,
+        payload: res.data,
+      });
+
+      return Promise.resolve();
+    })
+    .catch(err => {
+      console.error(err);
+      dispatch({
+        type: CREATE_EXAMINATION_RESULT_FAILURE,
+        payload: err.message,
       });
 
       return Promise.reject();

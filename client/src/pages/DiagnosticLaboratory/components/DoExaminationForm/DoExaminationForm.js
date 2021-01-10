@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { createExaminationResult } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
 
 const DoExaminationForm = () => {
   const [result, setResult] = useState('');
@@ -18,11 +19,11 @@ const DoExaminationForm = () => {
     if (!result) 
       return;
 
-    dispatch()
+    dispatch(createExaminationResult(examinationId, result));
   }
 
   return (
-    <form>
+    <form onSubmit={handleConfirmExaminationResult}>
       <h3>Badanie: {pendingExamination && pendingExamination.name}</h3>
       <label>
         Wynik badania nr {examinationId}<br />
