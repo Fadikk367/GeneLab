@@ -8,7 +8,8 @@ export const Layout = styled.div`
 export const Sidebar = styled.aside`
   width: 300px;
   min-width: 300px;
-  background-color: lightblue;
+  background-color: #15857e;
+  z-index: 100;
 `;
 
 export const Center = styled.div`
@@ -22,6 +23,10 @@ export const Header = styled.header`
   background-color: lightcyan;
   display: flex;
   justify-content: space-between;
+
+  -webkit-box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
 `;
 
 export const Page = styled.main`

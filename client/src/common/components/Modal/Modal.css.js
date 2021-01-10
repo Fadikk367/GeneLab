@@ -7,6 +7,7 @@ export const ModalWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 101;
 `;
 
 
