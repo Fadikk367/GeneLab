@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories, Login } from './pages';
 
-import { BasketPreview, ProtectedRoute } from 'common/components';
+import { BasketPreview, ProtectedRoute, Navigation } from 'common/components';
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
 
@@ -21,28 +21,24 @@ const App = () => {
   }, [dispatch]);
 
   const publicLinks = [
-    <li><Link to='/'>Strona główna</Link></li>,
-    <li><Link to='/test-catalog'>Katalog Badań</Link></li>,
-    <li><Link to='/results'>Wyniki online</Link></li>,
-    <li><Link to='/about'>O nas</Link></li>,
+    { path: '/', text: 'Strona główna'},
+    { path: '/test-catalog', text: 'Katalog badań'},
+    { path: '/results', text: 'Wyniki online'},
+    { path: '/about', text: 'O nas'},
   ]
   const privateLinks = [
-    <li><Link to='/admin-panel'>Panel Administracyjny</Link></li>,
-    <li><Link to='/laboratories'>Pracownie</Link></li>,
+    { path: '/admin-panel', text: 'Panel Administracyjny'},
+    { path: '/laboratories', text: 'Pracownie'},
   ]
 
-  const navLinks = auth.isAuthentificated ? [...publicLinks, ...privateLinks] : publicLinks;
+  const links = auth.isAuthentificated ? [...publicLinks, ...privateLinks] : publicLinks;
 
   return (
     <Layout>
       <GlobalStyles />
       <Sidebar>
         <h1>GeneLab</h1>
-        <nav>
-          <ul>
-            {navLinks}
-          </ul>
-        </nav>
+        <Navigation links={links}/>
       </Sidebar>
       <Center>
         <Header>
