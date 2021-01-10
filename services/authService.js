@@ -33,7 +33,7 @@ export const login = async (credentials, client = pool) => {
 
   const secret = process.env.TOKEN_SECRET;
 
-  const token = jwt.sign({ tokenPayload }, secret, { expiresIn: THREE_DAYS_IN_SECCONDS });
+  const token = jwt.sign(tokenPayload, secret, { expiresIn: THREE_DAYS_IN_SECCONDS });
 
   return {
     authToken: token,
@@ -69,7 +69,21 @@ export const registerEmployee = async (employeeData, client = pool) => {
 } 
 
 
+const authEmployee = async (token) => {
+  const secret = process.env.TOKEN_SECRET;
+
+  try {
+    const payload = jwt.verify(token, secret);
+    return payload;
+  } catch(err) {
+    console.log(err.message);
+    throw new Error("VIOLATED TOKEN!!!");
+  }
+}
+
+
 export default {
   login,
+  authEmployee,
   registerEmployee,
 }

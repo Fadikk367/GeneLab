@@ -105,6 +105,26 @@ const updateTest = async (req, res, next) => {
   }
 }
 
+const createExaminationResult = async (req, res, next) => {
+  console.log(req.user);
+
+  const examinationId = req.params.examinationId;
+  const { result } = req.body;
+
+  try {
+    await pool.query(
+      `INSERT INTO wynik_badania (data, wartosc, zlecenie_badania_id, pracownik_id)
+      VALUES ($1, $2, $3, $4)`, 
+      [new Date().toISOString().substring(0, 10), result, examinationId, req.user.id]
+    );
+
+    res.json({ doneExaminationId: examinationId });
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
+}
+
 
 export default {
   createTest,
@@ -113,4 +133,5 @@ export default {
   getAllTests,
   deleteTest,
   updateTest,
+  createExaminationResult,
 }
