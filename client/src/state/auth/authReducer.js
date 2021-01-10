@@ -25,6 +25,8 @@ const authReducer = (state = initialState, action) => {
         user,
       }
     case USER_LOGOUT:
+      clearStorage();
+      
       return {
         ...state,
         isAuthentificated: false,
@@ -47,8 +49,13 @@ function getUserDataFromLocalStorage() {
   return JSON.parse(localStorage.getItem('user'));
 }
 
+function clearStorage() {
+  localStorage.setItem('authToken', null);
+  localStorage.setItem('user', null);
+}
+
 function isLoggedIn() {
-  return localStorage.getItem('authToken') && JSON.parse(localStorage.getItem('user'));
+  return (!!localStorage.getItem('authToken') && JSON.parse(!!localStorage.getItem('user')));
 }
 
 function saveUserDataInLocalStorage(userData) {

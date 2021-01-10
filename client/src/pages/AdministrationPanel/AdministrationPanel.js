@@ -14,23 +14,10 @@ import {
 import { Card } from 'common/components';
 import { PanelsSection } from './AdministrationPanel.css';
 
-import { getAllBiologicalMaterials } from 'state/biologicalMaterial/biologicalMaterialActions';
-import { getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
-import { getAllTestCategories } from 'state/testCategory/testCategoryActions';
-import { getAllTests } from 'state/test/testActions';
-
 
 const AdministrationPanel = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
   const [suffix, setSuffix] = useState('');
-
-  useEffect(() => {
-    dispatch(getAllBiologicalMaterials());
-    dispatch(getAllDiagnosticLaboratories());
-    dispatch(getAllTestCategories());
-    dispatch(getAllTests());
-  }, []);
 
   useEffect(() => {
     const suffixesBySubpages = {
@@ -73,4 +60,4 @@ const AdministrationPanel = () => {
   )
 }
 
-export default AdministrationPanel
+export default AdministrationPanel;

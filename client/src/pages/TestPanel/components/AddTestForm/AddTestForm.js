@@ -20,14 +20,6 @@ const AddTestForm = () => {
 
   const handleSubmitForm = handleSubmit(async formData => {
     dispatch(createTest(formData));
-    // console.log(formData);
-    // try {
-    //   const response = await axios.post('/tests', formData);
-    //   console.log(response);
-
-    // } catch(err) {
-    //   console.log(err);
-    // }
   })
 
   return (

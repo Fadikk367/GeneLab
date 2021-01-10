@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories, Login } from './pages';
 
@@ -8,15 +8,23 @@ import { BasketPreview, ProtectedRoute } from 'common/components';
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
 
+import { getAllTestCategories } from 'state/testCategory/testCategoryActions';
+
+
 
 const App = () => {
   const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllTestCategories());
+  }, [dispatch]);
 
   const publicLinks = [
     <li><Link to='/'>Strona główna</Link></li>,
     <li><Link to='/test-catalog'>Katalog Badań</Link></li>,
     <li><Link to='/results'>Wyniki online</Link></li>,
-    <li><Link to='/about'>O nas</Link></li>
+    <li><Link to='/about'>O nas</Link></li>,
   ]
   const privateLinks = [
     <li><Link to='/admin-panel'>Panel Administracyjny</Link></li>,
