@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { Form, SubmitButton, Label, ResultInput } from './DoExaminationForm.css';
+
 import { createExaminationResult } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
+
 
 const DoExaminationForm = () => {
   const [result, setResult] = useState('');
@@ -23,15 +26,16 @@ const DoExaminationForm = () => {
   }
 
   return (
-    <form onSubmit={handleConfirmExaminationResult}>
-      <h3>Badanie: {pendingExamination && pendingExamination.name}</h3>
-      <label>
-        Wynik badania nr {examinationId}<br />
-        <input type="text"value={result} onChange={e => setResult(e.target.value)}/>
+    <Form onSubmit={handleConfirmExaminationResult}>
+      <p>Badanie: {pendingExamination && pendingExamination.name}</p>
+      <p>Numer zlecenia badania: {examinationId}</p>
+      <Label>
+        Wynik:
+        <ResultInput type="text"value={result} onChange={e => setResult(e.target.value)}/>
         <span> {pendingExamination && pendingExamination.unit} </span>
-        <button type='submit'>Zatwierdź</button>
-      </label>
-    </form>
+      </Label>
+      <SubmitButton type='submit'>Zatwierdź</SubmitButton>
+    </Form>
   )
 }
 
