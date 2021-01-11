@@ -3,6 +3,7 @@ import {
   USER_LOGOUT,
 } from './authActions';
 
+console.log(localStorage.getItem('authToken'));
 
 const initialState = {
   isAuthentificated: isLoggedIn(),
@@ -50,12 +51,12 @@ function getUserDataFromLocalStorage() {
 }
 
 function clearStorage() {
-  localStorage.setItem('authToken', null);
+  localStorage.setItem('authToken', '');
   localStorage.setItem('user', null);
 }
 
 function isLoggedIn() {
-  return (!!localStorage.getItem('authToken') && JSON.parse(!!localStorage.getItem('user')));
+  return (localStorage.getItem('authToken') && JSON.parse(localStorage.getItem('user')));
 }
 
 function saveUserDataInLocalStorage(userData) {

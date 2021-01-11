@@ -10,7 +10,8 @@ export const PageWrapper = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #12a9a0;;
+  background-color: #12a9a0;
+  z-index: 102;
 `;
 
 export const PageContent = styled.div`

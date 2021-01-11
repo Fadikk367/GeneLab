@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { PageWrapper, PageContent, FormTitle, Form, TextInput, ErrorMessageBox, LoginButton, InfoParagraph } from './Login.css';
@@ -7,9 +8,10 @@ import { PageWrapper, PageContent, FormTitle, Form, TextInput, ErrorMessageBox, 
 import { login } from 'state/auth/authActions';
 
 
-const Login = () => {
+const Login =  () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(null);
   const dispatch = useDispatch();
 
   const handleSubmitLoginForm = e => {
@@ -17,7 +19,10 @@ const Login = () => {
 
     if (email && password) {
       dispatch(login({ email, password }))
-        .then(() => console.log('Udał osię zalogować :)'))
+        .then(() => {
+          console.log('Udał osię zalogować :)');
+          setRedirect(<Redirect to='/' />);
+        })
         .catch(() => console.log('Nie udało się zalogowac :('));
       // console.log({ email, password });
     }
@@ -40,6 +45,7 @@ const Login = () => {
           </FormControl>
           <LoginButton type='submit'>Zaloguj się</LoginButton>
         </Form>
+        {redirect}
         <InfoParagraph>Nie pamiętasz hasła lub nie posaidasz konta a jesteś pracownikiem laboratorium? Skontaktuj się z administratorem systemu.</InfoParagraph>
       </PageContent>
     </PageWrapper>
