@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories, Login } from './pages';
 
-import { BasketPreview, ProtectedRoute, Navigation, Logo } from 'common/components';
+import { BasketPreview, ProtectedRoute, Navigation, Logo, EmployeeInfoBox } from 'common/components';
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
 
@@ -39,10 +39,11 @@ const App = () => {
       <Sidebar>
         <Logo />
         <Navigation links={links}/>
+        {auth.isAuthentificated ? <EmployeeInfoBox user={auth.user}/> : null}
       </Sidebar>
       <Center>
         <Header>
-          Górny pasek kontrolny
+          ""
           <BasketPreview />
         </Header>
         <Page>
