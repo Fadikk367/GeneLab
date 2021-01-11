@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import { DiagnosticLaboratory } from 'pages';
-import { Card } from 'common/components';
+import { Card, Headline } from 'common/components';
 import { Layout, CardFooter } from './DiagnosticLaboratories.css';
 
 import { getLaboratoriesWorkOccupancy, getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
@@ -36,7 +36,7 @@ const DiagnosticLaboratories = () => {
     <div>
       <Switch>
         <Route path='/laboratories' exact>
-          <h1>Pracownie</h1>
+        <Headline color='#454545'>Pracownie</Headline>
           <Layout>
             {laboratoryCards}
           </Layout>

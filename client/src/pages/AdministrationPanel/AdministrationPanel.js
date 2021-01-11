@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ReplyIcon from '@material-ui/icons/Reply';
 
 import { 
   BiologicalMaterialsPanel, 
@@ -11,7 +12,8 @@ import {
   EmployeePanel,
 } from '../';
 
-import { Card } from 'common/components';
+import { Card, Headline } from 'common/components';
+import { Icon } from 'common/icons';
 import { PanelsSection } from './AdministrationPanel.css';
 
 
@@ -21,12 +23,12 @@ const AdministrationPanel = () => {
 
   useEffect(() => {
     const suffixesBySubpages = {
-      'tests': '/Badania',
-      'laboratories': '/Pracownie diagnostyczne',
-      'materials': '/Materiały biologiczne',
-      'test-categories': '/Kategorie badań',
-      'positions': '/Stanowiska',
-      'employees': '/Pracownicy',
+      'tests': '/ Badania',
+      'laboratories': '/ Pracownie diagnostyczne',
+      'materials': '/ Materiały biologiczne',
+      'test-categories': '/ Kategorie badań',
+      'positions': '/ Stanowiska',
+      'employees': '/ Pracownicy',
       'admin-panel': '',
     }
 
@@ -36,7 +38,13 @@ const AdministrationPanel = () => {
 
   return (
     <div>
-      <h1><Link to='/admin-panel'>Panel Administracyjny</Link>{suffix}</h1>
+      <Headline>
+        <Headline.BackLink to='/admin-panel' underline={suffix}>
+          Panel Administracyjny 
+          <Icon.GoBack  hide={!suffix} size={30}/>
+        </Headline.BackLink>
+        {suffix}
+      </Headline>
       <hr/>
       <Switch>
         <Route path='/admin-panel' exact>

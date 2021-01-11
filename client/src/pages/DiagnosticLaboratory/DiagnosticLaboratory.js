@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams, Link, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Modal } from 'common/components';
+import { Modal, Headline } from 'common/components';
+import { Icon } from 'common/icons';
 import { DoExaminationForm } from './components';
 
 import { getPendingExaminations } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
@@ -33,7 +34,13 @@ const DiagnosticLaboratory = () => {
   return (
     <>
       <div>
-        <h1><Link to='/laboratories'>Pracownie</Link> / {laboratory && laboratory.name}</h1>
+        <Headline>
+          <Headline.BackLink to='/laboratories' underline>
+            Pracownie 
+            <Icon.GoBack  hide={!laboratory} size={30}/>
+          </Headline.BackLink>
+          {laboratory && ( '/ ' + laboratory.name)}
+        </Headline>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iusto voluptatem eveniet exercitationem aperiam voluptatum molestiae qui laboriosam aliquid! Quia fuga voluptatem libero nemo, iure sed nam omnis dolor, iusto numquam nisi. Atque fugiat sit.</p>
         <ul>
           {pendingExaminationsItems}
