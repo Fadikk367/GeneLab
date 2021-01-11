@@ -2,7 +2,8 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { useHistory } from 'react-router-dom';
 
-import { ModalWrapper, ModalContent } from './Modal.css';
+import { Icon } from 'common/icons';
+import { ModalWrapper, ModalContent, ModalHeader, ModalTitle } from './Modal.css';
 
 
 const Modal = ({ title, children, width = 400, height = 400 }) => {
@@ -16,8 +17,10 @@ const Modal = ({ title, children, width = 400, height = 400 }) => {
   return createPortal(
     <ModalWrapper onClick={handleCloseModal}>
       <ModalContent onClick={e => e.stopPropagation()} width={width} height={height}>
-        <button onClick={handleCloseModal}>&times;</button>
-        <h2>Modal - {title}</h2>
+        <ModalHeader>
+          <ModalTitle>{title}</ModalTitle>
+          <Icon.Close size={35} fill='white' clickable onClick={handleCloseModal}/>
+        </ModalHeader>
         {children}
       </ModalContent>
     </ModalWrapper>,
