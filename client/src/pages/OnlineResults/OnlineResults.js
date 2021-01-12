@@ -6,6 +6,7 @@ import { ProgressBar } from './OnlineResults.css';
 
 const OnlineResults = () => {
   const [orderId, setOrderId] = React.useState(0);
+  const [pesel, setPesel] = React.useState('');
   const [progres, setProgress] = React.useState(0);
   const [fetched, setFetched] = React.useState(false);
 
@@ -18,11 +19,20 @@ const OnlineResults = () => {
         setFetched(true);
       })
       .catch(err => console.error(err));
+
+    axios.get(`/orders/${orderId}/results?pesel=${pesel}`)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return (
     <div>
       <input type="number" value={orderId} onChange={e => setOrderId(e.target.value)}/>
+      <input type="text" value={pesel} onChange={e => setPesel(e.target.value)}/>
       <button onClick={checkOrderStatus}>Sprawdź</button>
       {fetched && (
         <>
