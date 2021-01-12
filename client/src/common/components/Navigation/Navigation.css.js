@@ -18,14 +18,15 @@ export const NavItem = styled.li`
 
 export const NavLink = styled(Link)`
   flex: 1;
-  padding: 10px;
+  padding: 10px 20px;
   color: white;
   text-decoration: none;
+  border-left: 4px solid transparent;
   transition: padding 0.2s ease-in-out;
 
   &:hover {
     background-color: #2fad98;
-    padding-left: 30px;
-    border-left: 4px solid white;
+    padding-left: 40px;
+    border-color: white;
   }
 `;

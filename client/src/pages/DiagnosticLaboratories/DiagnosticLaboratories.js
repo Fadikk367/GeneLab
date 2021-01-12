@@ -33,17 +33,17 @@ const DiagnosticLaboratories = () => {
   });
 
   return (
-    <div>
+    <>
       <Switch>
         <Route path='/laboratories' exact>
         <Headline color='#454545'>Pracownie</Headline>
-          <Layout>
-            {laboratoryCards}
-          </Layout>
+        <Layout>
+          {laboratoryCards}
+        </Layout>
         </Route>
         <Route path='/laboratories/:laboratoryId' component={DiagnosticLaboratory}/>
       </Switch>
-    </div>
+    </>
   )
 }
 

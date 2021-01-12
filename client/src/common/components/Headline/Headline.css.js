@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 export const Head = styled.h2`
-  margin: 20px;
+  margin: 20px 30px;
 
   font-size: 2em;
   letter-spacing: 1px;
