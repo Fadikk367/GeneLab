@@ -74,13 +74,8 @@ const getOrderResults = async (req, res, next) => {
 
   try {
     const result = await pool.query(
-      `SELECT ZAM_BAD.id as zamowienie_id, ZAM_BAD.data, imie, nazwisko, pesel, wartosc, nazwa, wartosc_min, wartosc_max, jednostka, ZL_BAD.id
-      FROM zamowienie_badan ZAM_BAD
-      JOIN dane_osobowe D_OS ON ZAM_BAD.dane_osobowe_id = D_OS.id
-      JOIN zlecenie_badania ZL_BAD on ZAM_BAD.id = ZL_BAD.zamowienie_id
-      JOIN wynik_badania WB on ZL_BAD.id = WB.zlecenie_badania_id
-      JOIN badanie BAD on ZL_BAD.badanie_id = BAD.id
-      WHERE D_OS.pesel = $2 AND ZAM_BAD.id = $1
+      `SELECT * FROM wyniki_zamowienia
+      WHERE pesel = $2 AND zamowienie_id = $1
       `,
       [orderId, pesel]
     );
