@@ -1,4 +1,5 @@
 import { pool } from '../db/index.js';
+import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js';
 
 
 const findByPesel = async (pesel, client = pool) => {
@@ -9,7 +10,9 @@ const findByPesel = async (pesel, client = pool) => {
     [pesel]
   );
 
-  return result.rows[0];
+  const personalData = translateResultRow(result.rows[0]);
+
+  return personalData;
 }
 
 const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }, client = pool) => {
@@ -22,7 +25,9 @@ const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }, c
     [firstName, lastName, pesel, dateOfBirth]
   );
 
-  return result.rows[0];
+  const createdPersonalData = translateResultRow(result.rows[0]);
+
+  return createdPersonalData;
 }
 
 const deletePersonalData = async (personalDataId) => {

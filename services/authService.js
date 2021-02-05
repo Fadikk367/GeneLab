@@ -1,6 +1,8 @@
-import { pool } from '../db/index.js';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
+import { pool } from '../db/index.js';
+import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js';
 
 const THREE_DAYS_IN_SECCONDS = 3*24*60*60;
 
@@ -58,13 +60,16 @@ export const registerEmployee = async (employeeData, client = pool) => {
     (dane_osobowe_id, stanowisko_id, email, haslo, data_zatrudnienia) 
     VALUES 
     ($1, $2, $3, $4, $5) 
-    RETURNING id, email`, 
+    RETURNING id, email, data_zatrudnienia`, 
     [personalDataId, positionId, email, passwordHash, new Date().toISOString().substring(0, 10)]
   );
 
+  const addedEmployee = translateResultRow(result.rows[0]);
+
   return {
-    id: result.rows[0].id,
-    email: result.rows[0].email,
+    id: addedEmployee.id,
+    email: addedEmployee.email,
+    employmentDate: addedEmployee.employmentDate,
   }
 } 
 
