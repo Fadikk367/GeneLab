@@ -13,7 +13,7 @@ const TestList = ({ tests = [] }) => {
       <Cell flex={3}>Nazwa</Cell>
       <Cell flex={3}>Przedział wartości</Cell>
       <Cell flex={1}>Materiał</Cell>
-      <Cell flex={2}>Pracownia</Cell>
+      <Cell flex={2}>Rodzaj</Cell>
       <Cell width={140}>Cena</Cell>
       <ItemControls>
         <Control>&times;</Control>

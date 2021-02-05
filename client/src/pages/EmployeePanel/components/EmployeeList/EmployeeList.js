@@ -53,10 +53,10 @@ const EmployeeList = ({ employees }) => {
           {idx}
         </div>
         <div style={{flex: '2'}}>
-          {employee.lastname} {employee.firstname}
+          {employee.lastName} {employee.firstName}
         </div>
         <div style={{flex: '2'}}>
-          {employee.title}
+          {employee.position}
         </div>
         <div style={{flex: '2'}}>
           {employee.email}
@@ -68,7 +68,7 @@ const EmployeeList = ({ employees }) => {
       <AccordionDetails>
         <div style={{flex: '1'}}>
           data zatrudnienia:<br />
-          {employee.dateofemplayment}
+          {employee.employmentDate}
         </div>
         <div style={{flex: '1'}}>
           premia:<br />

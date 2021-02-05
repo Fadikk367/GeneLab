@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TestCategoryTitle, TestListFilterForm, TestList } from './components';
 
-import { getAllTests } from 'state/test/testActions';
+import { getAllTests } from 'state/examination/examinationActions';
 
 
 
 const TestCatalog = () => {
   const [selectedCategory, setSelectedCategory] = React.useState({ name: 'Wszystkie', id: -1 });
-  const tests = useSelector(state => state.test.testList).filter(test => {
+  const tests = useSelector(state => state.examinations.list).filter(test => {
     if (selectedCategory.id === -1) return true;
     return test.categoryid === selectedCategory.id;
   });

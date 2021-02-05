@@ -22,7 +22,7 @@ export const DELETE_EMPLOYEE_POSITION_FAILURE = 'DELETE_EMPLOYEE_POSITION_FAILUR
 
 
 export const getAllEmployeePositions = () => async dispatch => {
-  return axios.get('/positions')
+  return axios.get('/employees/positions')
     .then(response => {
       console.log(response);
 
@@ -47,7 +47,7 @@ export const getAllEmployeePositions = () => async dispatch => {
 
 
 export const createEmployeePosition = (positionName, positionSalary, positionDescription) => async dispatch => {
-  return axios.post('/positions', { positionName, positionSalary, positionDescription })
+  return axios.post('/employees/positions', { positionName, positionSalary, positionDescription })
     .then(response => {
       console.log(response);
 
@@ -72,7 +72,7 @@ export const createEmployeePosition = (positionName, positionSalary, positionDes
 
 
 export const deleteEmployeePosition = positionId => async dispatch => {
-  return axios.delete(`/positions/${positionId}`)
+  return axios.delete(`/employees/positions/${positionId}`)
     .then(response => {
       console.log(response);
 

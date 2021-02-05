@@ -6,12 +6,12 @@ import { useForm } from 'react-hook-form';
 import { FormHeader, Form, Input, InputLabel, SubmitButton } from './AddTestForm.css';
 import { RelationSelect } from '..';
 
-import { createTest } from 'state/test/testActions'
+import { createTest } from 'state/examination/examinationActions'
 
 
 const AddTestForm = () => {
-  const materials = useSelector(state => state.biologicalMaterial.materialList);
-  const laboratories = useSelector(state => state.diagnosticLaboratory.laboratoryList);
+  const materials = useSelector(state => state.common.materials);
+  const examinationTypes = useSelector(state => state.common.examinationTypes);
   const categories = useSelector(state => state.testCategory.categoryList);
 
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const AddTestForm = () => {
   const { register, handleSubmit, errors } = useForm();
 
   const handleSubmitForm = handleSubmit(async formData => {
+    console.log(formData);
     dispatch(createTest(formData));
   })
 
@@ -46,16 +47,22 @@ const AddTestForm = () => {
         <Input name='price' ref={register}/>
       </InputLabel>
       <InputLabel>
-        Kategoria:
-        <RelationSelect name='categoryId' register={register} options={categories}/>
-      </InputLabel>
-      <InputLabel>
         Materiał:
-        <RelationSelect name='materialId' register={register} options={materials}/>
+        <select name='material' ref={register}>
+          {materials.map(material => (
+            <option key={material} value={material}>{material}</option>
+          ))}
+        </select>
+        {/* <RelationSelect name='material' register={register} options={materials}/> */}
       </InputLabel>
       <InputLabel>
-        Pracownia:
-        <RelationSelect name='laboratoryId' register={register} options={laboratories}/>
+        Rodzaj:
+        <select name='type' ref={register}>
+          {examinationTypes.map(type => (
+            <option key={type} value={type}>{type}</option>
+          ))}
+        </select>
+        {/* <RelationSelect name='type' register={register} options={examinationTypes}/> */}
       </InputLabel>
       <SubmitButton>Dodaj</SubmitButton>
     </Form>
