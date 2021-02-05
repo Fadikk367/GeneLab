@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Table = styled.table`
   width: 1000px;
   padding: 30px;
+  font-size: 1.1em;
 `;
 
 export const TableBody = styled.tbody`

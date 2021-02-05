@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 // import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -15,10 +16,15 @@ import { List } from 'common/components';
 import { BiologicalMaterialItem } from '../';
 import { StyledAccordion, StyledButton } from './BiologicalMaterialList.css';
 
+import { deleteBiologicalMaterial } from 'state/biologicalMaterial/biologicalMaterialActions';
+
+
 const BiologicalMaterialList = ({ materials = [] }) => {
   // const renderedItems = materials.map((material, idx) => (
   //   <BiologicalMaterialItem key={material.id} lp={idx} {...material}/>
   // ));
+
+  const dispatch = useDispatch();
 
   const renderedItems = materials.map((material, idx) => (
     <StyledAccordion key={material.id}>
@@ -50,6 +56,7 @@ const BiologicalMaterialList = ({ materials = [] }) => {
         <StyledButton 
           size="medium"
           startIcon={<DeleteIcon/>}
+          onClick={() => dispatch(deleteBiologicalMaterial(material.id))}
         >
           Delete
         </StyledButton>

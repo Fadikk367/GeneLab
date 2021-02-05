@@ -45,7 +45,6 @@ const AdministrationPanel = () => {
         </Headline.BackLink>
         {suffix}
       </Headline>
-      <hr/>
       <Switch>
         <Route path='/admin-panel' exact>
           <PanelsSection>

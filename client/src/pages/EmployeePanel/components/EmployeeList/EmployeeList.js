@@ -20,6 +20,30 @@ import { deleteEmployee } from 'state/employee/employeeActions';
 const EmployeeList = ({ employees }) => {
   const dispatch = useDispatch();
 
+  const listLabel = (
+    <StyledAccordion disabled>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+      >
+        <div style={{width: '30px'}}>
+          Lp.
+        </div>
+        <div style={{flex: '2'}}>
+          Nazwisko Imię
+        </div>
+        <div style={{flex: '2'}}>
+          Stanowisko
+        </div>
+        <div style={{flex: '2'}}>
+          Email
+        </div>
+        <div style={{flex: '1'}}>
+          Pensja
+        </div>
+      </AccordionSummary>
+    </StyledAccordion>
+  )
+
   const renderedItems = employees.map((employee, idx) => (
     <StyledAccordion key={employee.id}>
       <AccordionSummary
@@ -76,6 +100,7 @@ const EmployeeList = ({ employees }) => {
     <List.Container width={'1000'}>
       <List.Title>Pracownicy ({employees.length})</List.Title>
       <List>
+        {listLabel}
         {renderedItems}
       </List>
     </List.Container>

@@ -59,9 +59,9 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
         </Page>
-        <Footer>
-          Stopka
-        </Footer>
+          <Footer>
+            Stopka
+          </Footer>
       </Center>
     </Layout>
   );

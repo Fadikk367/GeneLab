@@ -8,8 +8,12 @@ import { getAllTests } from 'state/test/testActions';
 
 
 const TestCatalog = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState({ name: '', id: null });
-  const tests = useSelector(state => state.test.testList).filter(test => test.categoryid === selectedCategory.id);
+  const [selectedCategory, setSelectedCategory] = React.useState({ name: 'Wszystkie', id: -1 });
+  const tests = useSelector(state => state.test.testList).filter(test => {
+    if (selectedCategory.id === -1) return true;
+    return test.categoryid === selectedCategory.id;
+  });
+
   const dispatch = useDispatch();
 
   useEffect(() => {

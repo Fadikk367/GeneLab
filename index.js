@@ -23,7 +23,6 @@ app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
 
-
 app.use('/categories', testCategoryRouter);
 app.use('/materials', biologicalMaterialRouter);
 app.use('/laboratories', diagnosticLaboratoryRouter);
