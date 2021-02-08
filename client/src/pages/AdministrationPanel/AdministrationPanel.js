@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import ReplyIcon from '@material-ui/icons/Reply';
 
 import { 
-  BiologicalMaterialsPanel, 
+  BloodCollectionPointPanel, 
   DiagnosticLaboratoriesPanel, 
   TestCategoriesPanel,
   TestPanel,
@@ -23,10 +23,10 @@ const AdministrationPanel = () => {
 
   useEffect(() => {
     const suffixesBySubpages = {
-      'tests': '/ Badania',
-      'laboratories': '/ Pracownie diagnostyczne',
-      'materials': '/ Materiały biologiczne',
-      'test-categories': '/ Kategorie badań',
+      'examinations': '/ Badania',
+      'laboratories': '/ Laboratoria diagnostyczne',
+      'points': '/ Punkty pobrań krwi',
+      'examinations-categories': '/ Kategorie badań',
       'positions': '/ Stanowiska',
       'employees': '/ Pracownicy',
       'admin-panel': '',
@@ -49,17 +49,17 @@ const AdministrationPanel = () => {
         <Route path='/admin-panel' exact>
           <PanelsSection>
             <Card title='Badania' link='/admin-panel/tests'/>
-            <Card title='Materiały biologiczne' link='/admin-panel/materials'/>
-            <Card title='Pracownie diagnostyczne' link='/admin-panel/laboratories'/>
-            <Card title='Kategorie badań' link='/admin-panel/test-categories'/>
+            <Card title='Punkty pobrań krwi' link='/admin-panel/points'/>
+            <Card title='Laboratoria diagnostyczne' link='/admin-panel/laboratories'/>
+            <Card title='Kategorie badań' link='/admin-panel/examinations-categories'/>
             <Card title='Stanowiska' link='/admin-panel/positions'/>
             <Card title='Pracownicy' link='/admin-panel/employees'/>
           </PanelsSection>
         </Route>
-        <Route path='/admin-panel/tests' component={TestPanel}/>
-        <Route path='/admin-panel/materials' component={BiologicalMaterialsPanel}/>
+        <Route path='/admin-panel/examinations' component={TestPanel}/>
+        <Route path='/admin-panel/points' component={BloodCollectionPointPanel}/>
         <Route path='/admin-panel/laboratories' component={DiagnosticLaboratoriesPanel}/>
-        <Route path='/admin-panel/test-categories' component={TestCategoriesPanel}/>
+        <Route path='/admin-panel/examination-categories' component={TestCategoriesPanel}/>
         <Route path='/admin-panel/positions' component={EmployeePositionPanel}/>
         <Route path='/admin-panel/employees' component={EmployeePanel}/>
       </Switch>

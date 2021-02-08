@@ -8,7 +8,7 @@ export { default as Cart } from './Cart';
 export { default as About } from './About/About';
 export { default as AdministrationPanel } from './AdministrationPanel';
 export { default as TestCategoriesPanel } from './TestCategoriesPanel';
-export { default as BiologicalMaterialsPanel } from './BiologicalMaterialsPanel';
+export { default as BloodCollectionPointPanel } from './BloodCollectionPointPanel';
 export { default as DiagnosticLaboratoriesPanel } from './DiagnosticLaboratoriesPanel';
 export { default as EmployeePositionPanel } from './EmployeePositionsPanel';
 export { default as EmployeePanel } from './EmployeePanel';
