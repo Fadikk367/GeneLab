@@ -30,7 +30,11 @@ const dictionary = {
   badanie_id: 'examinationId',
   status: 'status',
   koszt: 'price',
-  rodzaj: 'type'
+  rodzaj: 'type',
+  miasto: 'city',
+  adres: 'address',
+  liczba_aparatow: 'numberOfDevices',
+  laboratorium_id: 'laboratoryId',
 }
 
 export const translateResultRow = result => {
