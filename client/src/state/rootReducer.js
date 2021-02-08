@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import testCategoryReducer from './testCategory/testCategoryReducer';
-import biologicalMaterialReducer from './biologicalMaterial/biologicalMaterialReducer';
+import bloodCollectionPointReducer from './bloodCollectionPoint/bloodCollectionPointReducer';
 import diagnosticLaboratoryReducer from './diagnosticLaboratory/diagnosticLaboratoryReducer';
 import clientBasketReducer from './clientBasket/clientBasketReducer';
 import employeePositionReducer from './employeePosition/employeePositionReducer';
@@ -14,7 +14,7 @@ import commonReducer from './common/commonReducer';
 
 const rootReducer = combineReducers({
   testCategory: testCategoryReducer,
-  biologicalMaterial: biologicalMaterialReducer,
+  bloodCollectionPoints: bloodCollectionPointReducer,
   diagnosticLaboratory: diagnosticLaboratoryReducer,
   examinations: examinationReducer,
   basket: clientBasketReducer,
