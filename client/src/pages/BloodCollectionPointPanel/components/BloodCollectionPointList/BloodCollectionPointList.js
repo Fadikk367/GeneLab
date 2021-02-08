@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 // import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -13,36 +13,36 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 import { List } from 'common/components';
-import { BiologicalMaterialItem } from '../';
-import { StyledAccordion, StyledButton } from './BiologicalMaterialList.css';
+// import { BloodCollectionPointItem } from '../';
+import { StyledAccordion, StyledButton } from './BloodCollectionPointList.css';
 
-import { deleteBiologicalMaterial } from 'state/biologicalMaterial/biologicalMaterialActions';
+// import { deleteBiologicalMaterial } from 'state/biologicalMaterial/biologicalMaterialActions';
 
 
-const BiologicalMaterialList = ({ materials = [] }) => {
+const BiologicalMaterialList = ({ points = [] }) => {
   // const renderedItems = materials.map((material, idx) => (
   //   <BiologicalMaterialItem key={material.id} lp={idx} {...material}/>
   // ));
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const renderedItems = materials.map((material, idx) => (
-    <StyledAccordion key={material.id}>
+  const renderedItems = points.map((point, idx) => (
+    <StyledAccordion key={point.id}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         // aria-controls="panel1c-content"
         // id="panel1c-header"
       >
-        <div style={{flex: '1'}}>
-          {material.name}
+        <div style={{flex: '3'}}>
+          {point.city}, {point.address}
         </div>
         <div style={{flex: '1'}}>
-        {material.id}
+          {point.laboratoryId}
         </div>
       </AccordionSummary>
       <AccordionDetails>
         <h3>Opis:</h3>
-        <p>{material.description}</p>
+        {/* <p>{material.description}</p> */}
       </AccordionDetails>
       <Divider />
       <AccordionActions>
@@ -56,7 +56,7 @@ const BiologicalMaterialList = ({ materials = [] }) => {
         <StyledButton 
           size="medium"
           startIcon={<DeleteIcon/>}
-          onClick={() => dispatch(deleteBiologicalMaterial(material.id))}
+          // onClick={() => dispatch(deleteBiologicalMaterial(point.id))}
         >
           Delete
         </StyledButton>
@@ -67,7 +67,7 @@ const BiologicalMaterialList = ({ materials = [] }) => {
 
   return (
     <List.Container>
-      <List.Title>Biological materials ({materials.length})</List.Title>
+      <List.Title>Lista wszytskich punktów pobrań ({points.length})</List.Title>
       <List>
         {renderedItems}
       </List>
