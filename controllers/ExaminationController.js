@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { pool } from '../db/index.js';
+import examinationCategoryController from './ExaminationCategoryController.js';
 import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js';
 
 
@@ -14,6 +15,7 @@ class ExaminationController {
     this.router.get('/', this.getAllExaminations);
     this.router.post('/', this.addExamination);
     this.router.delete('/:examinationId', this.deleteExamination);
+    this.router.use('/categories', examinationCategoryController.router);
   }
 
   async getAllExaminations(req, res, next) {
