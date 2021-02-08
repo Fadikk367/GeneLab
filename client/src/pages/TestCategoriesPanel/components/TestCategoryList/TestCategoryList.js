@@ -5,8 +5,8 @@ import { TestCategoryItem } from '..';
 
 
 const TestCategoryList = ({ categories = [] }) => {
-  const renderedItems = categories.map((material, idx) => (
-    <TestCategoryItem key={material.id} lp={idx} {...material}/>
+  const renderedItems = categories.map((category, idx) => (
+    <TestCategoryItem key={category.id} lp={idx} {...category}/>
   ));
 
   return (

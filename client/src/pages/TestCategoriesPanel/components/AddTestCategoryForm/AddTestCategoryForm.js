@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { createTestCategory } from 'state/testCategory/testCategoryActions';
+import { createExaminationCategory } from 'state/examination/examinationActions';
 
 const AddBiologicalMaterialForm = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -10,7 +10,7 @@ const AddBiologicalMaterialForm = () => {
 
   const handleSubmitForm = handleSubmit(formData => {
     console.log(formData);
-    dispatch(createTestCategory(formData.name, formData.description));
+    dispatch(createExaminationCategory(formData));
   })
 
   return (
