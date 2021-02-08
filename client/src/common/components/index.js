@@ -10,3 +10,4 @@ export { default as EmployeeInfoBox } from './EmployeeInfoBox';
 export { default as Card } from './Card';
 export { default as Modal } from './Modal';
 export { default as ProtectedRoute } from './ProtectedRoute';
+export { default as RelationSelect } from './RelationSelect';
