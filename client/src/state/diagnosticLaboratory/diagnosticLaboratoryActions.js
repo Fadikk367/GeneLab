@@ -59,8 +59,8 @@ export const getAllDiagnosticLaboratories = () => async dispatch => {
 }
 
 
-export const createDiagnosticLaboratory = (laboratoryName, laboratoryDescription) => async dispatch => {
-  return axios.post('/laboratories', { laboratoryName, laboratoryDescription })
+export const createDiagnosticLaboratory = laboratoryAttributes => async dispatch => {
+  return axios.post('/laboratories', laboratoryAttributes)
     .then(response => {
       console.log(response);
 

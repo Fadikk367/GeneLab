@@ -24,7 +24,7 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
     case GET_DIAGNOSTIC_LABORATORIES_SUCCESS:
       return {
         ...state,
-        laboratoryList: action.payload.diagnosticLaboratories
+        laboratoryList: action.payload,
       }
     case GET_DIAGNOSTIC_LABORATORIES_FAILURE:
       return {
@@ -49,7 +49,7 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
         }
       }
     case CREATE_DIAGNOSTIC_LABORATORY_SUCCESS:
-      const createdDiagnosticLaboratory = action.payload.createdDiagnosticLaboratory
+      const createdDiagnosticLaboratory = action.payload;
       return {
         ...state,
         laboratoryList: [...state.laboratoryList, createdDiagnosticLaboratory]
@@ -59,10 +59,10 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
         ...state,
       }
     case DELETE_DIAGNOSTIC_LABORATORY_SUCCESS:
-      const deletedDiagnosticLaboratory = action.payload.deletedDiagnosticLaboratory
+      const deletedDiagnosticLaboratoryId = action.payload;
       return {
         ...state,
-        laboratoryList: state.laboratoryList.filter(material => material.id !== deletedDiagnosticLaboratory.id)
+        laboratoryList: state.laboratoryList.filter(material => material.id !== deletedDiagnosticLaboratoryId)
       }
     case DELETE_DIAGNOSTIC_LABORATORY_FAILURE:
       return {

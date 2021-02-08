@@ -6,13 +6,15 @@ import { deleteDiagnosticLaboratory } from 'state/diagnosticLaboratory/diagnosti
 
 const { Lp, Cell, ItemControls, Control } = ListItem;
 
-const DiagnosticLaboratoryItem = ({ lp, id, name }) => {
+const DiagnosticLaboratoryItem = ({ lp, id, city, address, numberOfDevices }) => {
   const dispatch = useDispatch();
 
   return (
     <ListItem>
       <Lp>{lp}.</Lp>
-      <Cell>{name}</Cell>
+      <Cell>{city}</Cell>
+      <Cell>{address}</Cell>
+      <Cell>{numberOfDevices}</Cell>
       <ItemControls>
         <Control onClick={() => dispatch(deleteDiagnosticLaboratory(id))}>&times;</Control>
       </ItemControls>

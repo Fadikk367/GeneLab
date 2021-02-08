@@ -10,18 +10,22 @@ const AddDiagnosticLaboratoryForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmitForm = handleSubmit(formData => {
-    dispatch(createDiagnosticLaboratory(formData.name, formData.description));
+    dispatch(createDiagnosticLaboratory(formData));
   })
 
   return (
     <form onSubmit={handleSubmitForm}>
       <label>
-        Nazwa pracowni:<br />
-        <input type="text" name="name" ref={register({ required: true })}/>
+        Miasto:<br />
+        <input type="text" name="city" ref={register({ required: true })}/>
       </label><br />
       <label>
-        Opis pracowni:<br />
-        <textarea cols="30" rows="10" name="description" ref={register({ required: true })}></textarea>
+        Adres:<br />
+        <input type="text" name="address" ref={register({ required: true })}/>
+      </label><br />
+      <label>
+        Liczba aparatów:<br />
+        <input type="text" name="numberOfDevices" ref={register({ required: true })}/>
       </label><br />
       <button type='submit'>Dodaj</button>
     </form>
