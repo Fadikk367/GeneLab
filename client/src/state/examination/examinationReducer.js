@@ -7,11 +7,16 @@ import {
 
   DELETE_EXAMINATION_SUCCESS,
   DELETE_EXAMINATION_FAILURE,
+
+  GET_EXAMINATIONS_CATEGORIES_SUCCESS,
+  CREATE_EXAMINATION_CATEGORY_SUCCESS,
+  DELETE_EXAMINATION_CATEGORY_SUCCESS,
 } from './examinationActions';
 
 
 const initialState = {
-  list: []
+  list: [],
+  categories: [],
 }
 
 const examinationReducer = (state = initialState, action) => {
@@ -45,6 +50,27 @@ const examinationReducer = (state = initialState, action) => {
     case DELETE_EXAMINATION_FAILURE:
       return {
         ...state,
+      }
+    case GET_EXAMINATIONS_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        categories: action.payload,
+      }
+    case CREATE_EXAMINATION_CATEGORY_SUCCESS:
+      const createdCategory = action.payload;
+      console.log({ createdCategory })
+
+      return {
+        ...state,
+        categories: [...state.categories, createdCategory],
+      }
+    case DELETE_EXAMINATION_CATEGORY_SUCCESS:
+      const deletedCategoryId = action.payload;
+      const remainingExaminationCategories = state.categories.filter(category => category.id !== deletedCategoryId);
+
+      return {
+        ...state,
+        categories: remainingExaminationCategories,
       }
     default:
       return state;
