@@ -15,11 +15,10 @@ const DiagnosticLaboratoriesPanel = () => {
   }, [dispatch])
 
   return (
-    <div>
-      DiagnosticLaboratoriesPanel<br />
+    <>
       <AddDiagnosticLaboratoryForm />
       <DiagnosticLaboratoryList laboratories={laboratories}/>
-    </div>
+    </>
   )
 }
 

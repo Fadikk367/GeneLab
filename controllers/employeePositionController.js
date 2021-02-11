@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { pool } from '../db/index.js';
+import { authUser } from '../middlewares/authUser.js';
 import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js';
 
 
@@ -12,9 +13,9 @@ class EmployeePositionController {
 
   initializeRoutes() {
     this.router.get('/', this.getAllEmployeePositions);
-    this.router.post('/', this.addEmployeePosition);
-    this.router.put('/:positionId', this.updateEmployeePosition);
-    this.router.delete('/:positionId', this.deleteEmployeePosition);
+    this.router.post('/', authUser, this.addEmployeePosition);
+    this.router.put('/:positionId', authUser, this.updateEmployeePosition);
+    this.router.delete('/:positionId', authUser, this.deleteEmployeePosition);
   }
 
   async getAllEmployeePositions(req, res, next) {

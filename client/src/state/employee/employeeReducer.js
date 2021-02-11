@@ -5,8 +5,7 @@ import {
   CREATE_EMPLOYEE_SUCCESS,
   CREATE_EMPLOYEE_FAILURE,
 
-  DELETE_EMPLOYEE_SUCCESS,
-  DELETE_EMPLOYEE_FAILURE,
+  UPDATE_EMPLOYEE_SUCCESS,
 } from './employeeActions';
 
 
@@ -36,16 +35,14 @@ const employeeReducer = (state = initialState, action) => {
       return {
         ...state,
       }
-    case DELETE_EMPLOYEE_SUCCESS:
-      const deletedEmployee = action.payload.deletedEmployee;
+    case UPDATE_EMPLOYEE_SUCCESS:
+      const updatedEmployee = action.payload;
+      const idx = state.employeeList.findIndex(employee => employee.id === updatedEmployee.id);
+      const employee = state.employeeList.splice(idx, 1)[0];
 
       return {
         ...state,
-        employeeList: state.employeeList.filter(employee => employee.id !== deletedEmployee.id)
-      }
-    case DELETE_EMPLOYEE_FAILURE:
-      return {
-        ...state,
+        employeeList: [...state.employeeList, { ...employee, bonus: updatedEmployee.bonus }],
       }
     default:
       return state;

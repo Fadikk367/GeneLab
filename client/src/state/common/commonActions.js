@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_BIOLOGICAL_MATERIALS = 'GET_BIOLOGICAL_MATERIALS';
 // export const GET_BIOLOGICAL_MATERIALS_REQUEST = 'GET_BIOLOGICAL_MATERIALS_REQUEST';

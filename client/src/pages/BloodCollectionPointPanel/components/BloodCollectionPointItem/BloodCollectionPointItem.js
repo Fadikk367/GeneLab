@@ -1,22 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { ListItem } from 'common/components';
-import { deleteBloodCollectionPoint } from 'state/bloodCollectionPoint/bloodCollectionPointActions';
 
-const { Lp, Cell, ItemControls, Control } = ListItem;
+const { Lp, Cell } = ListItem;
 
-const BloodCollectionPointItem = ({ lp, id, city, address, laboratoryId }) => {
-  const dispatch = useDispatch();
 
+const BloodCollectionPointItem = ({ lp, id, city, street, number, laboratoryId }) => {
   return (
     <ListItem>
       <Lp>{lp}.</Lp>
-      <Cell>{city}, {address}</Cell>
+      <Cell flex={1}>{city}, {street} {number}</Cell>
       <Cell>{laboratoryId}</Cell>
-      <ItemControls>
-        <Control onClick={() => dispatch(deleteBloodCollectionPoint(id))}>&times;</Control>
-      </ItemControls>
+      <Cell></Cell>
     </ListItem>
   )
 }

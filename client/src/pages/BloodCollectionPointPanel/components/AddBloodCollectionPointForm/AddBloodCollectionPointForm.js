@@ -9,7 +9,7 @@ import { createBloodCollectionPoint } from 'state/bloodCollectionPoint/bloodColl
 
 const AddBloodCollectionPointForm = () => {
   const laboratories = useSelector(state => state.diagnosticLaboratory.laboratoryList);
-  const optionLaboratories = laboratories.map(lab => ({ ...lab, name: lab.city + ", " + lab.address}))
+  const optionLaboratories = laboratories.map(lab => ({ ...lab, name: lab.city + ", " + lab.street + " " + lab.number}))
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
 
@@ -25,8 +25,12 @@ const AddBloodCollectionPointForm = () => {
         <input type="text" name="city" ref={register({ required: true })}/>
       </label><br />
       <label>
-        Adres:<br />
-        <input type="text" name="address" ref={register({ required: true })}/>
+        Ulica:<br />
+        <input type="text" name="street" ref={register({ required: true })}/>
+      </label><br />
+      <label>
+        Numer budynku:<br />
+        <input type="text" name="number" ref={register({ required: true })}/>
       </label><br />
       <label>
         Odpowiedzialne laboratorium:<br />

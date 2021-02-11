@@ -5,10 +5,9 @@ export const ListItem = styled.li`
   align-items: center;
   padding: 10px;
 
-  font-size: 1.1.em;
-
-  ${props => props.header ? 'font-weight: bold;' : null}
-  ${props => props.header ? 'background-color: lightskyblue !important;' : null}
+  ${props => props.header ? 'font-size: 1.1em;' : null}
+  ${props => props.header ? 'color: white;' : null}
+  ${props => props.header ? 'background-color: #15857e !important;' : null}
   ${props => props.header ? `
     & > :last-child {
       visibility: hidden;
@@ -50,8 +49,9 @@ export const Control = styled.button`
   cursor: pointer;
   border: none;
   outline: none;
-  background-color: grey;
+  background-color: #15857e;
   font-size: 1.3em;
+  color: white;
 
   margin-left: 5px;
 `;

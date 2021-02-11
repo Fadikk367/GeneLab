@@ -13,11 +13,11 @@ export const LogoText = styled.h1`
   font-weight: 700;
   margin-left: 20px;
   font-style: italic;
-  color: white;
+  color: #15857e;
 `;
 
 export const LogoSpan = styled.span`
-  color: red;
+  color: #454545;
   margin-right: 5px;
   font-weight: 500;
 `;

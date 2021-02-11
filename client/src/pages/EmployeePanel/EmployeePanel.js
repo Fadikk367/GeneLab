@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-import { AddEmployeeForm, EmployeeList } from './components';
+import { Modal } from 'common/components'
+import { AddEmployeeForm, EmployeeList, UpdateEmployeeForm } from './components';
 
 import { getAllEmployees } from 'state/employee/employeeActions';
 import { getAllEmployeePositions } from 'state/employeePosition/employeePositionActions';
@@ -17,11 +19,17 @@ const EmployeePanel = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      emp panel
+    <>
       <AddEmployeeForm />
       <EmployeeList employees={employees}/>
-    </div>
+      <Switch>
+        <Route path='/admin-panel/employees/:employeeId/update'>
+          <Modal title={'Aktualizacja pracownika'}>
+            <UpdateEmployeeForm />
+          </Modal>
+        </Route>
+      </Switch>
+    </>
   )
 }
 

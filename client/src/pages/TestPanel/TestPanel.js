@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AddTestForm, TestList } from './components';
 
-import { getAllTests } from 'state/examination/examinationActions';
+import { getAllTests, getAllExaminationCategories } from 'state/examination/examinationActions';
 import { getBiologicalMaterials, getAllExaminationTypes } from 'state/common/commonActions';
 
 
@@ -15,14 +15,14 @@ const TestPanel = () => {
     dispatch(getAllTests());
     dispatch(getBiologicalMaterials());
     dispatch(getAllExaminationTypes());
+    dispatch(getAllExaminationCategories());
   }, [dispatch]);
 
   return (
-    <div>
-      TestPanel<br />
+    <>
       <AddTestForm />
       <TestList tests={tests}/>
-    </div>
+    </>
   )
 }
 

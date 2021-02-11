@@ -1,31 +1,37 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import axios from 'api/axiosInstance';
 
 import { TestCategoryTitle, TestListFilterForm, TestList } from './components';
 
-import { getAllTests } from 'state/examination/examinationActions';
-
-
 
 const TestCatalog = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState({ name: 'Wszystkie', id: -1 });
-  const tests = useSelector(state => state.examinations.list).filter(test => {
-    if (selectedCategory.id === -1) return true;
-    return test.categoryid === selectedCategory.id;
-  });
+  const categories = useSelector(state => state.examinations.categories);
+  const [selectedCategory, setSelectedCategory] = React.useState(categories[0] || { name: 'Wybierz kategorię', id: -1});
+  const [examinations, setExaminations] = React.useState([]);
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllTests());
-  }, [dispatch])
+    async function fetchExaminations(categoryId) {
+      try {
+        const response = await axios.get(`/examinations/category/${categoryId}`);
+        setExaminations(response.data);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
+    if (selectedCategory.id !== -1) {
+      fetchExaminations(selectedCategory.id);
+    }
+  }, [selectedCategory])
 
   return (
     <div style={{width: '90%', margin: '0 auto'}}>
       <TestCategoryTitle categoryName={selectedCategory.name}/>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <TestList items={tests}/>
-        <TestListFilterForm handleSelectCategory={setSelectedCategory}/>
+        <TestList items={examinations}/>
+        <TestListFilterForm handleSelectCategory={setSelectedCategory} categories={categories}/>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_TEST_CATEGORIES = 'GET_TEST_CATEGORIES';
 // export const GET_TEST_CATEGORIES_REQUEST = 'GET_TEST_CATEGORIES_REQUEST';

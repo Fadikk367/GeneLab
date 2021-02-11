@@ -5,6 +5,7 @@ import { ListItem } from 'common/components';
 import { Icon } from 'common/icons';
 
 import { addProductToBasket } from 'state/clientBasket/clientBasketActions';
+import { Button } from './TestItem.css'
 
 const { Lp, Cell, ItemControls, Control } = ListItem;
 
@@ -19,10 +20,9 @@ const TestItem = ({ lp, ...test }) => {
       <Cell flex={1}>{name}</Cell>
       <Cell width={140}>{price} PLN</Cell>
       <ItemControls>
-        <button onClick={() => dispatch(addProductToBasket(test))}>
+        <Button onClick={() => dispatch(addProductToBasket(test))}>
           Do koszyka
-          <Icon.BasketPlus size={25} stroke={'white'} clickable />
-        </button>
+        </Button>
       </ItemControls>
     </ListItem>
   )

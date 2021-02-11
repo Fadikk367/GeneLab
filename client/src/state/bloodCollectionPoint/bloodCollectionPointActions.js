@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_BLOOD_COLLECTION_POINTS = 'GET_BLOOD_COLLECTION_POINTS';
 // export const GET_BLOOD_COLLECTION_POINTS_REQUEST = 'GET_BLOOD_COLLECTION_POINTS_REQUEST';
@@ -54,6 +54,7 @@ export const createBloodCollectionPoint = pointAttributes => async dispatch => {
       dispatch({
         type: CREATE_BLOOD_COLLECTION_POINT_SUCCESS,
         payload: response.data,
+        message: 'Punkt pobrań został dodany',
       });
 
       return Promise.resolve();
@@ -63,7 +64,8 @@ export const createBloodCollectionPoint = pointAttributes => async dispatch => {
 
       dispatch({
         type: CREATE_BLOOD_COLLECTION_POINT_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: {},
+        message: 'Nie udałop się dodać punktu pobrań'
       });
 
       return Promise.reject();
@@ -79,6 +81,7 @@ export const deleteBloodCollectionPoint = pointId => async dispatch => {
       dispatch({
         type: DELETE_BLOOD_COLLECTION_POINT_SUCCESS,
         payload: response.data,
+        message: 'Punkt pobrań został usunięty',
       });
 
       return Promise.resolve();
@@ -88,7 +91,8 @@ export const deleteBloodCollectionPoint = pointId => async dispatch => {
 
       dispatch({
         type: DELETE_BLOOD_COLLECTION_POINT_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: {},
+        message: 'Nie udało się usunąć punktu pobrań'
       });
 
       return Promise.reject();

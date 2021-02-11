@@ -1,95 +1,94 @@
+import { Router } from 'express';
+import { v4 as uuid } from 'uuid';
+
 import { pool } from '../db/index.js';
 import personalDataService from '../services/personalDataService.js';
+import { translateResultRows, translateResultRow } from '../utils/variableNamesTranslator.js';
 
 
-const checkOrderStatus = async (req, res, next) => {
-  const orderId = req.params.orderId;
-
-  try {
-    const result = await pool.query(`SELECT progres_zlecenia_badan($1) as progres`, [orderId]);
-
-    const progres = result.rows[0].progres;
-    res.json({ progres, orderId });
-  } catch(err) {
-    if (err.code === 'P0001')
-      res.status(400).json({ message: err.message });
+class OrderController {
+  constructor() {
+    this.router = Router();
+    this.initializeRoutes();
   }
-}
 
+  initializeRoutes() {
+    this.router.post('/', this.createOrder);
+    this.router.get('/:code/results', this.getOrderResults);
+  }
 
-const createOrder = async (req, res, next) => {
-  const { personalData, products } = req.body;
-  console.log(req.body);
-  const client = await pool.connect();
-
-  try {
-    await client.query('BEGIN');
-
-    let personalDataId;
-    const existingPersonalData = await personalDataService.findByPesel(personalData.pesel, client);
-    if (existingPersonalData) {
-      personalDataId = existingPersonalData.id;
-      console.log('dane osobowe juz istnieja');
-    } else {
-      const createdPersonalData = await personalDataService.createPersonalData(personalData, client);
-      personalDataId = createdPersonalData.id;
-      console.log('dane osobowe zostaly stworzone');
+  async getOrderResults(req, res, next) {
+    const accessCode = req.params.code;
+  
+    try {
+      const result1 = await pool.query(`SELECT * FROM pobierz_wyniki_badan($1)`, [accessCode]);
+      const result2 = await pool.query(`SELECT * FROM pobierz_metadane_zamowienia($1)`, [accessCode]);
+  
+      const results = translateResultRows(result1.rows);
+      const metadata = translateResultRow(result2.rows[0]);
+  
+      res.json({ results, metadata });
+    } catch(err) {
+      if (err.code === 'P0001') {
+        res.status(404).json({ message: err.message });
+      } else {
+        next(err);
+      }
     }
+  }
 
-
-    const order = (await client.query(
-      `INSERT INTO zamowienie_badan (dane_osobowe_id, data, kod_dostepu) 
-      VALUES ($1, $2, $3)
-      RETURNING *`,
-      [personalDataId, '2021-01-03', 123]
-    )).rows[0];
-
-    console.log('stworzono zamowienie')
-
-    for (let product of products) {
+  async createOrder(req, res, next) {
+    const { personalData, products, point } = req.body;
+    const laboratoryId = point.laboratoryId;
+    const bloodCollectionPointId = point.id;
+    const client = await pool.connect();
+  
+    try {
+      await client.query('BEGIN');
+  
+      let personalDataId;
+      const existingPersonalData = await personalDataService.findByPesel(personalData.pesel, client);
+      if (existingPersonalData.id) {
+        personalDataId = existingPersonalData.id;
+      } else {
+        const createdPersonalData = await personalDataService.createPersonalData(personalData, client);
+        personalDataId = createdPersonalData.id;
+      }
+  
+  
+      const order = (await client.query(
+        `INSERT INTO zamowienie_badan (dane_osobowe_id, punkt_pobran_id, data, kod_dostepu) 
+        VALUES ($1, $2, $3, $4)
+        RETURNING *`,
+        [personalDataId, bloodCollectionPointId, new Date(), uuid()]
+      )).rows[0];
+  
+      const totalPrice = products.reduce((total, product) => total += parseFloat(product.price), 0.0);
+  
       await client.query(
-        `INSERT INTO zlecenie_badania (zamowienie_id, badanie_id, status, koszt)
-        VALUES ($1, $2, $3, $4)`,
-        [order.id, product.id, 'oczekujace', product.price]
+        `INSERT INTO platnosc (zamowienie_id, rodzaj, kwota) VALUES ($1, $2, $3)`, 
+        [order.id, 'przelew', totalPrice]
       );
-
-      console.log('stworzono zlecienie dla ' + product.name);
+  
+      for (let product of products) {
+        await client.query(
+          `INSERT INTO zlecenie_badania (zamowienie_id, laboratorium_id, badanie_id, koszt)
+          VALUES ($1, $2, $3, $4)`,
+          [order.id, laboratoryId, product.id, product.price]
+        );
+      }
+  
+      await client.query('COMMIT');
+      res.json({ createdOrder: translateResultRow(order) });
+    } catch(err) {
+      client.query('ROLLBACK');
+      console.error(err);
+      next(err);
+    } finally {
+      client.release();
     }
-
-    await client.query('COMMIT');
-    console.log('poszlo');
-    res.json({ createdOrder: order });
-  } catch(err) {
-    await client.query('ROLLBACK');
-    console.log('popsulo sie');
-    console.error(err);
-  } finally {
-    client.release();
-  }
-}
-
-const getOrderResults = async (req, res, next) => {
-  const orderId = req.params.orderId;
-  const pesel = req.query.pesel;
-
-  try {
-    const result = await pool.query(
-      `SELECT * FROM wyniki_zamowienia
-      WHERE pesel = $2 AND zamowienie_id = $1
-      `,
-      [orderId, pesel]
-    );
-
-    res.json({ results: result.rows });
-  } catch(err) {
-    console.error(err);
-    next(err);
   }
 }
 
 
-export default {
-  createOrder,
-  checkOrderStatus,
-  getOrderResults,
-}
+export default new OrderController();

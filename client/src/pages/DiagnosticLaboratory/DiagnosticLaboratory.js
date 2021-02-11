@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useParams, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Modal, Headline } from 'common/components';
-import { Icon } from 'common/icons';
 import { DoExaminationForm, PendingExaminationsList } from './components';
 
 import { getPendingExaminations } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
@@ -11,32 +10,26 @@ import { getPendingExaminations } from 'state/diagnosticLaboratory/diagnosticLab
 
 
 const DiagnosticLaboratory = () => {
-  const { laboratoryId } = useParams();
+  const laboratoryId = useSelector(state => state.auth.user.laboratoryId);
+  const pendingExaminations = useSelector(state => state.diagnosticLaboratory.pendingExaminations);
+  const laboratory = useSelector(state => state.diagnosticLaboratory.laboratoryList).find(lab => lab.id === laboratoryId);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPendingExaminations(laboratoryId));
+    dispatch(getPendingExaminations());
   }, [laboratoryId, dispatch]);
 
-  const laboratory = useSelector(state => state.diagnosticLaboratory.laboratoryList).find(lab => lab.id === parseInt(laboratoryId));
 
-  const pendingExaminations = useSelector(state => (
-    state.diagnosticLaboratory.pendingExaminationsByLaboratoryId[laboratoryId]
-  )) || [];
-
-  
   return (
     <>
-      <Headline>
-        <Headline.BackLink to='/laboratories' underline>
-          Pracownie 
-          <Icon.GoBack  hide={!laboratory} size={30}/>
-        </Headline.BackLink>
-        {laboratory && ( '/ ' + laboratory.name)}
+      <Headline color="#454545">
+        Laboratorium: {laboratory && `${laboratory.city}, ${laboratory.street} ${laboratory.number}`}<br />
+        Liczba aparatów: {laboratory && `${laboratory.numberOfDevices}`}
       </Headline>
-      <PendingExaminationsList pendingExaminations={pendingExaminations} laboratoryId={laboratoryId}/>
+      <PendingExaminationsList pendingExaminations={pendingExaminations}/>
       <Switch>
-        <Route path='/laboratories/:laboratoryId/examinations/:examinationId/do'>
+        <Route path='/laboratory/examinations/:examinationId/do'>
           <Modal title={'Wynik badania'}>
             <DoExaminationForm />
           </Modal>

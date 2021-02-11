@@ -11,7 +11,8 @@ const TestList = ({ tests = [] }) => {
     <ListItem header>
       <Lp>Lp.</Lp>
       <Cell flex={3}>Nazwa</Cell>
-      <Cell flex={3}>Przedział wartości</Cell>
+      <Cell flex={2}>Przedział wartości</Cell>
+      <Cell flex={1}>Jednostka</Cell>
       <Cell flex={1}>Materiał</Cell>
       <Cell flex={2}>Rodzaj</Cell>
       <Cell width={140}>Cena</Cell>
@@ -26,7 +27,7 @@ const TestList = ({ tests = [] }) => {
   ));
 
   return (
-    <List.Container width={1000}>
+    <List.Container width={1100}>
       <List.Title>Badania: ({tests.length})</List.Title>
       <List>
         {ListLabel}

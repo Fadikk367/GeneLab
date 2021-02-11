@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Link, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import ReplyIcon from '@material-ui/icons/Reply';
 
 import { 
   BloodCollectionPointPanel, 
@@ -16,10 +15,17 @@ import { Card, Headline } from 'common/components';
 import { Icon } from 'common/icons';
 import { PanelsSection } from './AdministrationPanel.css';
 
+import { getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
+
 
 const AdministrationPanel = () => {
   const location = useLocation();
   const [suffix, setSuffix] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllDiagnosticLaboratories());
+  }, [])
 
   useEffect(() => {
     const suffixesBySubpages = {
@@ -48,7 +54,7 @@ const AdministrationPanel = () => {
       <Switch>
         <Route path='/admin-panel' exact>
           <PanelsSection>
-            <Card title='Badania' link='/admin-panel/tests'/>
+            <Card title='Badania' link='/admin-panel/examinations'/>
             <Card title='Punkty pobrań krwi' link='/admin-panel/points'/>
             <Card title='Laboratoria diagnostyczne' link='/admin-panel/laboratories'/>
             <Card title='Kategorie badań' link='/admin-panel/examinations-categories'/>
@@ -59,7 +65,7 @@ const AdministrationPanel = () => {
         <Route path='/admin-panel/examinations' component={TestPanel}/>
         <Route path='/admin-panel/points' component={BloodCollectionPointPanel}/>
         <Route path='/admin-panel/laboratories' component={DiagnosticLaboratoriesPanel}/>
-        <Route path='/admin-panel/examination-categories' component={TestCategoriesPanel}/>
+        <Route path='/admin-panel/examinations-categories' component={TestCategoriesPanel}/>
         <Route path='/admin-panel/positions' component={EmployeePositionPanel}/>
         <Route path='/admin-panel/employees' component={EmployeePanel}/>
       </Switch>

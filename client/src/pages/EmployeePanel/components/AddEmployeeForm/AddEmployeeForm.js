@@ -10,6 +10,8 @@ import { createEmployee } from 'state/employee/employeeActions';
 
 const AddEmployeeForm = () => {
   const positions = useSelector(state => state.employeePosition.positionList);
+  const laboratories = useSelector(state => state.diagnosticLaboratory.laboratoryList);
+  const optionLaboratories = laboratories.map(lab => ({ ...lab, name: lab.city + ", " + lab.street + " " + lab.number}))
 
   const dispatch = useDispatch();
 
@@ -24,6 +26,7 @@ const AddEmployeeForm = () => {
       email,
       password,
       dateOfBirth,
+      laboratoryId,
     } = formData;
 
     dispatch(createEmployee({
@@ -35,6 +38,7 @@ const AddEmployeeForm = () => {
       },
       employeeData: {
         positionId,
+        laboratoryId,
         email,
         password,
       },
@@ -43,7 +47,6 @@ const AddEmployeeForm = () => {
 
   return (
     <Form onSubmit={handleSubmitForm}>
-      <FormHeader>Dodaj nowe badanie:</FormHeader>
       <InputLabel>
         Imię:
         <Input name='firstName' ref={register}/>
@@ -71,6 +74,10 @@ const AddEmployeeForm = () => {
       <InputLabel>
         Stanowisko:
         <RelationSelect name='positionId' register={register} options={positions}/>
+      </InputLabel>
+      <InputLabel>
+        Laboratorium:
+        <RelationSelect name='laboratoryId' register={register} options={optionLaboratories}/>
       </InputLabel>
       <SubmitButton>Dodaj</SubmitButton>
     </Form>

@@ -10,7 +10,7 @@ const TestCategoryList = ({ categories = [] }) => {
   ));
 
   return (
-    <List.Container>
+    <List.Container width="100%">
       <List.Title>Test Categories ({categories.length})</List.Title>
       <List>
         {renderedItems}

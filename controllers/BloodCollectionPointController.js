@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
-import { pool } from '../db/index.js'
+import { pool } from '../db/index.js';
+import { authUser } from '../middlewares/authUser.js';
 import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js'
 
 
@@ -12,13 +13,13 @@ class BloodCollectionPointController {
 
   initializeRoutes() {
     this.router.get('/', this.getAllPoints);
-    this.router.post('/', this.createPoint);
-    this.router.delete('/:pointId', this.deletePoint);
+    this.router.post('/', authUser, this.createPoint);
+    this.router.delete('/:pointId', authUser, this.deletePoint);
   }
 
   async getAllPoints(req, res, next) {
     try {
-      const result = await pool.query('SELECT * FROM punkt_pobran');
+      const result = await pool.query('SELECT PP.id, PP.laboratorium_id, adres.miasto, adres.ulica, adres.numer FROM punkt_pobran PP JOIN adres ON adres.id = PP.adres_id');
       const points = translateResultRows(result.rows);
 
       res.json(points);
@@ -29,39 +30,72 @@ class BloodCollectionPointController {
   }
 
   async createPoint(req, res, next) {
-    const { city, address, laboratoryId } = req.body;
+    const { city, street, number, laboratoryId } = req.body;
+    const client = await pool.connect();
 
     try {
-      const result = await pool.query(
-        `INSERT INTO punkt_pobran (miasto, adres, laboratorium_id) 
+      await client.query('BEGIN');
+
+      const resultAddress = await client.query(
+        `INSERT INTO adres (miasto, ulica, numer) 
         VALUES ($1, $2, $3) 
         RETURNING *`, 
-        [city, address, laboratoryId]
+        [city, street, number]
       );
 
-      const createdPoint = translateResultRow(result.rows[0]);
-      res.json(createdPoint);
+      const { id } = translateResultRow(resultAddress.rows[0]);
+
+      const resultPoint = await client.query(
+        `INSERT INTO punkt_pobran (adres_id, laboratorium_id) 
+        VALUES ($1, $2) 
+        RETURNING *`, 
+        [id, laboratoryId]
+      );
+      
+      await client.query('COMMIT');
+
+      const createdPoint = translateResultRow(resultPoint.rows[0]);
+
+      res.json({ id: createdPoint.id, city, street, number, laboratoryId });
     } catch(err) {
-      console.error(err);
+      client.query('ROLLBACK');
       next(err);
+    } finally {
+      client.release();
     }
   }
 
   async deletePoint(req, res, next) {
     const pointId = parseInt(req.params.pointId);
   
+    const client = await pool.connect();
+
     try {
-      const result = await pool.query(
+      await client.query('BEGIN');
+
+      const result = await client.query(
         `DELETE FROM punkt_pobran 
         WHERE id = $1 
         RETURNING id`, 
         [pointId]
       );
 
-      res.json(result.rows[0].id);
+      const addressId = result.rows[0].adres_id;
+
+      await client.query(
+        `DELETE FROM adres 
+        WHERE id = $1 
+        RETURNING id`, 
+        [addressId]
+      );
+
+      client.query('COMMIT');
+      res.json(pointId);
     } catch(err) {
-      console.error(err);
+      client.query('ROLLBACK');
       next(err);
+    } finally {
+      client.release();
     }
   }
 }

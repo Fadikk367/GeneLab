@@ -1,5 +1,7 @@
 import { Router } from "express";
+
 import { pool } from "../db/index.js";
+import { authUser } from '../middlewares/authUser.js';
 import { translateResultRows, translateResultRow } from "../utils/variableNamesTranslator.js";
 
 
@@ -11,9 +13,9 @@ class ExaminationCategoryController {
 
   initializeRoutes() {
     this.router.get('/', this.getAllCategories);
-    this.router.post('/', this.createCategory);
-    this.router.delete('/:categoryId', this.deleteCategory);
-    this.router.post('/:categoryId', this.addExaminationToCategory);
+    this.router.post('/', authUser, this.createCategory);
+    this.router.delete('/:categoryId', authUser, this.deleteCategory);
+    this.router.post('/:categoryId', authUser, this.addExaminationToCategory);
   }
 
   async getAllCategories(req, res, next) {
@@ -53,8 +55,8 @@ class ExaminationCategoryController {
     try {
       await client.query('BEGIN');
 
-      await client.query('DELETE FROM kategoria_badan WHERE id = $1', [categoryId]);
       await client.query('DELETE FROM badanie_kategoria WHERE kategoria_id = $1', [categoryId]);
+      await client.query('DELETE FROM kategoria_badan WHERE id = $1', [categoryId]);
 
       await client.query('COMMIT');
       res.json(categoryId);

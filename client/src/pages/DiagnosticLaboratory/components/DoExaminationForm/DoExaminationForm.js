@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { Form, SubmitButton, Label, ResultInput } from './DoExaminationForm.css';
 
@@ -9,20 +9,22 @@ import { createExaminationResult } from 'state/diagnosticLaboratory/diagnosticLa
 
 const DoExaminationForm = () => {
   const [result, setResult] = useState('');
-  const { laboratoryId, examinationId } = useParams();
+  const { examinationId } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const pendingExamination = useSelector(state => (
-    state.diagnosticLaboratory.pendingExaminationsByLaboratoryId)
-  )[laboratoryId].find(item => item.id === parseInt(examinationId));
+    state.diagnosticLaboratory.pendingExaminations)
+  ).find(item => item.id === parseInt(examinationId));
 
-  const handleConfirmExaminationResult = e => {
+  const handleConfirmExaminationResult = async e => {
     e.preventDefault();
 
     if (!result) 
       return;
 
     dispatch(createExaminationResult(examinationId, result));
+    history.goBack();
   }
 
   return (

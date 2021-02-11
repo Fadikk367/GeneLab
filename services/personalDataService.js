@@ -21,7 +21,7 @@ const createPersonalData = async ({ firstName, lastName, pesel, dateOfBirth }, c
     (imie, nazwisko, pesel, data_urodzenia) 
     VALUES 
     ($1, $2, $3, $4)
-    RETURNING id, imie as firstName, nazwisko as lastName, pesel, data_urodzenia as dateOfBirth`,
+    RETURNING id, imie, nazwisko, pesel, data_urodzenia`,
     [firstName, lastName, pesel, dateOfBirth]
   );
 

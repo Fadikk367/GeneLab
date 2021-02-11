@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddBloodCollectionPointForm, BloodCollectionPointList } from './components';
 
 import { getAllBloodCollectionPoints } from 'state/bloodCollectionPoint/bloodCollectionPointActions';
-import { getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
 
 
 const BloodCollectionPoint = () => {
@@ -13,7 +12,6 @@ const BloodCollectionPoint = () => {
 
   useEffect(() => {
     dispatch(getAllBloodCollectionPoints());
-    dispatch(getAllDiagnosticLaboratories());
   }, [dispatch])
   
   return (

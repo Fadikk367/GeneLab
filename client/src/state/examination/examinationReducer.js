@@ -26,30 +26,18 @@ const examinationReducer = (state = initialState, action) => {
         ...state,
         list: action.payload
       }
-    case GET_EXAMINATIONS_FAILURE:
-      return {
-        ...state,
-        list: []
-      }
     case CREATE_EXAMINATION_SUCCESS:
       const createdExamination = action.payload;
       return {
         ...state,
         list: [...state.list, createdExamination]
       }
-    case CREATE_EXAMINATION_FAILURE:
-      return {
-        ...state,
-      }
     case DELETE_EXAMINATION_SUCCESS:
-      const deletedExamination = action.payload
+      const deletedExaminationId = parseInt(action.payload);
+      
       return {
         ...state,
-        list: state.list.filter(examination => examination.id !== deletedExamination.id)
-      }
-    case DELETE_EXAMINATION_FAILURE:
-      return {
-        ...state,
+        list: state.list.filter(examination => examination.id !== deletedExaminationId)
       }
     case GET_EXAMINATIONS_CATEGORIES_SUCCESS:
       return {

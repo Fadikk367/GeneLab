@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { pool } from '../db/index.js';
+import { authUser } from '../middlewares/authUser.js';
 import personalDataService from '../services/personalDataService.js';
 import authService from '../services/authService.js';
 import { translateResultRow, translateResultRows } from '../utils/variableNamesTranslator.js';
@@ -15,8 +16,10 @@ class EmployeeController {
 
   initializeRoutes() {
     this.router.get('/', this.getAllEmployees);
-    this.router.post('/', this.createEmployee);
-    this.router.delete('/:employeeId', this.deleteEmployee);
+    this.router.post('/', authUser, this.createEmployee);
+    this.router.put('/:employeeId', authUser, this.updateEmployee);
+    this.router.delete('/:employeeId', authUser, this.deleteEmployee);
+    
     this.router.use('/positions', employeePositionController.router);
   }
 
@@ -28,15 +31,16 @@ class EmployeeController {
 
       res.json({ employees });
     } catch(err) {
-      console.error(err);
       next(err);
     }
   }
 
   async createEmployee(req, res, next) {
+    const client = await pool.connect();
+
     try {
-      const client = await pool.connect();
-      const { positionId, email, password } = req.body.employeeData;
+      await client.query('BEGIN');
+      const { positionId, email, password, laboratoryId } = req.body.employeeData;
   
       const personalData = await personalDataService.createPersonalData(req.body.personalData, client);
   
@@ -44,9 +48,12 @@ class EmployeeController {
       const hiredEmployee = await authService.registerEmployee({
         personalDataId: personalData.id,
         positionId,
+        laboratoryId,
         email,
         password,
       }, client);
+
+      await client.query('COMMIT');
   
       res.json({ 
         createdEmployee: {
@@ -55,7 +62,28 @@ class EmployeeController {
         } 
       });
     } catch(err) {
-      console.error(err);
+      client.query('ROLLBACK');
+      next(err);
+    } finally {
+      client.release();
+    }
+  }
+
+  async updateEmployee(req, res, next) {
+    const employeeId = req.params.employeeId;
+    const bonus = req.body.bonus;
+  
+    try {
+      const result = await pool.query(
+        'UPDATE pracownik SET premia = $1 WHERE id = $2 RETURNING id, premia', 
+        [bonus, employeeId]
+      );
+  
+      const updatedEmployee = translateResultRow(result.rows[0]);
+  
+      res.json(updatedEmployee);
+    } catch(err) {
+      next(err);
     }
   }
 
@@ -72,7 +100,7 @@ class EmployeeController {
   
       res.json({ deletedEmployee });
     } catch(err) {
-      console.error(err);
+      next(err);
     }
   }
 }

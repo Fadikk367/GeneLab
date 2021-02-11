@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_EMPLOYEE_POSITIONS = 'GET_EMPLOYEE_POSITIONS';
 // export const GET_EMPLOYEE_POSITIONS_REQUEST = 'GET_EMPLOYEE_POSITIONS_REQUEST';

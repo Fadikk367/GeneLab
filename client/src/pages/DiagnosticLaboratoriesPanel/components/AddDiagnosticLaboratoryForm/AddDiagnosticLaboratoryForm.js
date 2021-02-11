@@ -20,8 +20,12 @@ const AddDiagnosticLaboratoryForm = () => {
         <input type="text" name="city" ref={register({ required: true })}/>
       </label><br />
       <label>
-        Adres:<br />
-        <input type="text" name="address" ref={register({ required: true })}/>
+        Ulica:<br />
+        <input type="text" name="street" ref={register({ required: true })}/>
+      </label><br />
+      <label>
+        Numer budynku:<br />
+        <input type="text" name="number" ref={register({ required: true })}/>
       </label><br />
       <label>
         Liczba aparatów:<br />

@@ -3,15 +3,20 @@ import {
   REMOVE_PRODUCT_FROM_BASKET,
   ADD_PERSONAL_DATA,
   CONFIRM_ORDER,
+  PLACE_ORDER_REQUEST,
   PLACE_ORDER_SUCCESS,
   PLACE_ORDER_FAILURE,
+  SELECT_POINT,
+  CLEAR_ORDER_INFORMATIONS,
 } from './clientBasketActions';
 
 
 const initialState = {
   products: [],
   personalData: null,
+  selectedPoint: null,
   isLoading: null,
+  placedOrderDetails: null,
 }
 
 const clientBasketReducer = (state = initialState, action) => {
@@ -34,7 +39,17 @@ const clientBasketReducer = (state = initialState, action) => {
         ...state,
         personalData: action.payload.personalData,
       }
+    case SELECT_POINT:
+      return {
+        ...state,
+        selectedPoint: action.payload.point,
+      }
     case CONFIRM_ORDER:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case PLACE_ORDER_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -45,11 +60,17 @@ const clientBasketReducer = (state = initialState, action) => {
         isLoading: false,
         products: [],
         personalData: null,
+        placedOrderDetails: action.payload.createdOrder,
       }
     case PLACE_ORDER_FAILURE:
       return {
         ...state,
         isLoading: false,
+      }
+    case CLEAR_ORDER_INFORMATIONS:
+      return {
+        ...state,
+        placedOrderDetails: null,
       }
     default:
       return state;

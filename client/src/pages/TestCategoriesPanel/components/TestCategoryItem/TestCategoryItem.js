@@ -11,9 +11,9 @@ const TestCategoryItem = ({ lp, id, name, description }) => {
 
   return (
     <ListItem>
-      <Lp>{lp}.</Lp>
-      <Cell>{name}</Cell>
-      <Cell>{description}</Cell>
+      <Lp width='40'>{lp}.</Lp>
+      <Cell width='240'>{name}</Cell>
+      <Cell flex={1}>{description}</Cell>
       <ItemControls>
         <Control onClick={() => dispatch(deleteExaminationCategory(id))}>&times;</Control>
       </ItemControls>

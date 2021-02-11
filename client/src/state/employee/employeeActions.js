@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_EMPLOYEES = 'GET_EMPLOYEES';
 // export const GET_EMPLOYEES_REQUEST = 'GET_EMPLOYEES_REQUEST';
@@ -15,10 +15,6 @@ export const CREATE_EMPLOYEE_FAILURE = 'CREATE_EMPLOYEE_FAILURE';
 export const UPDATE_EMPLOYEE_SUCCESS = 'UPDATE_EMPLOYEE_SUCCESS';
 export const UPDATE_EMPLOYEE_FAILURE = 'UPDATE_EMPLOYEE_FAILURE';
 
-// export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
-// export const DELETE_EMPLOYEE_REQUEST = 'DELETE_EMPLOYEE_REQUEST';
-export const DELETE_EMPLOYEE_SUCCESS = 'DELETE_EMPLOYEE_SUCCESS';
-export const DELETE_EMPLOYEE_FAILURE = 'DELETE_EMPLOYEE_FAILURE';
 
 
 export const getAllEmployees = () => async dispatch => {
@@ -54,6 +50,7 @@ export const createEmployee = ({ personalData, employeeData }) => async dispatch
       dispatch({
         type: CREATE_EMPLOYEE_SUCCESS,
         payload: response.data,
+        message: 'Pracownik został dodany'
       });
 
       return Promise.resolve();
@@ -63,7 +60,8 @@ export const createEmployee = ({ personalData, employeeData }) => async dispatch
 
       dispatch({
         type: CREATE_EMPLOYEE_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: {},
+        message: 'Nie udało się dodać pracownika'
       });
 
       return Promise.reject();
@@ -71,14 +69,15 @@ export const createEmployee = ({ personalData, employeeData }) => async dispatch
 }
 
 
-export const deleteEmployee = employeeId => async dispatch => {
-  return axios.delete(`/employees/${employeeId}`)
+export const updateEmployee = (employeeId, bonus) => async dispatch => {
+  return axios.put(`/employees/${employeeId}`, { bonus })
     .then(response => {
       console.log(response);
 
       dispatch({
-        type: DELETE_EMPLOYEE_SUCCESS,
+        type: UPDATE_EMPLOYEE_SUCCESS,
         payload: response.data,
+        message: 'Pracownik został zaktualizowany',
       });
 
       return Promise.resolve();
@@ -87,8 +86,9 @@ export const deleteEmployee = employeeId => async dispatch => {
       console.log(err);
 
       dispatch({
-        type: DELETE_EMPLOYEE_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        type: UPDATE_EMPLOYEE_FAILURE,
+        payload: {},
+        message: 'Nie udało się edytować premii'
       });
 
       return Promise.reject();

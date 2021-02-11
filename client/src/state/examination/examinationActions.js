@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_EXAMINATIONS = 'GET_EXAMINATIONS';
 // export const GET_EXAMINATIONS_REQUEST = 'GET_EXAMINATIONS_REQUEST';
@@ -64,6 +64,7 @@ export const createTest = testAttributes => async dispatch => {
       dispatch({
         type: CREATE_EXAMINATION_SUCCESS,
         payload: response.data,
+        message: 'Badanie zostało utworzone'
       });
 
       return Promise.resolve();
@@ -73,7 +74,8 @@ export const createTest = testAttributes => async dispatch => {
 
       dispatch({
         type: CREATE_EXAMINATION_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: null,
+        message: 'Nie udało się stworzyć badania'
       });
 
       return Promise.reject();
@@ -89,6 +91,7 @@ export const deleteTest = categoryId => async dispatch => {
       dispatch({
         type: DELETE_EXAMINATION_SUCCESS,
         payload: response.data,
+        message: 'Badanie zostało usunięte'
       });
 
       return Promise.resolve();
@@ -98,7 +101,8 @@ export const deleteTest = categoryId => async dispatch => {
 
       dispatch({
         type: DELETE_EXAMINATION_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: null,
+        message: 'Nie można usunąć tego badania'
       });
 
       return Promise.reject();
@@ -165,6 +169,7 @@ export const deleteExaminationCategory = categoryId => async dispatch => {
       dispatch({
         type: DELETE_EXAMINATION_CATEGORY_SUCCESS,
         payload: response.data,
+        message: 'Kategoria badan została usunięta'
       });
 
       return Promise.resolve();
@@ -174,7 +179,8 @@ export const deleteExaminationCategory = categoryId => async dispatch => {
 
       dispatch({
         type: DELETE_EXAMINATION_CATEGORY_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: 'nie udalo sie zalogowac...',
+        message: 'Nie udało się usunąc kategorii'
       });
 
       return Promise.reject();

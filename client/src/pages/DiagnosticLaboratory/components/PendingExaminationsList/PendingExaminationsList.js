@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Table, TableBody, TableHead, TableRow, TableCell } from './PendingExaminationsList.css';
 
 
-const PendingExaminationsList = ({ pendingExaminations, laboratoryId }) => {
+const PendingExaminationsList = ({ pendingExaminations = [] }) => {
   return (
     <Table>
       <TableHead>
@@ -28,11 +28,12 @@ const PendingExaminationsList = ({ pendingExaminations, laboratoryId }) => {
             <TableCell flex={2}>{row.material}</TableCell>
             <TableCell flex={1}>{row.id}</TableCell>
             <TableCell flex={1} align='right'>
-              <Link to={`/laboratories/${laboratoryId}/examinations/${row.id}/do`}>Wykonaj</Link>
+              <Link to={`/laboratory/examinations/${row.id}/do`}>Wykonaj</Link>
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
+      {pendingExaminations.length === 0 ? 'Brak oczekujących badań...' : null}
     </Table>
   )
 }

@@ -9,9 +9,10 @@ const THREE_DAYS_IN_SECCONDS = 3*24*60*60;
 
 export const login = async (credentials, client = pool) => {
   const { email, password } = credentials;
+  console.log({credentials})
 
   const result = await client.query(
-    `SELECT D_OS.imie as firstName, D_OS.nazwisko as lastName, ST.nazwa as position, PR.haslo as password, PR.id
+    `SELECT D_OS.imie as imie, D_OS.nazwisko as nazwisko, ST.nazwa as stanowisko, PR.haslo as haslo, PR.id, PR.laboratorium_id
     FROM pracownik PR
     JOIN dane_osobowe D_OS ON PR.dane_osobowe_id = D_OS.id
     JOIN stanowisko ST ON PR.stanowisko_id = ST.id
@@ -20,7 +21,11 @@ export const login = async (credentials, client = pool) => {
     [email]
   );
 
-  const existingUser = result.rows[0];
+  const existingUser = translateResultRow(result.rows[0]);
+  
+  if (!existingUser.password) {
+    throw new Error('Błędne dane logowania!');
+  }
 
   if (!bcrypt.compare(password, existingUser.password)) {
     throw new Error('Błędne dane logowania!');
@@ -28,9 +33,10 @@ export const login = async (credentials, client = pool) => {
 
   const tokenPayload = {
     id: existingUser.id,
-    firstName: existingUser.firstname,
-    lastName: existingUser.lastname,
+    firstName: existingUser.firstName,
+    lastName: existingUser.lastName,
     position: existingUser.position,
+    laboratoryId: existingUser.laboratoryId,
   }
 
   const secret = process.env.TOKEN_SECRET;
@@ -48,6 +54,7 @@ export const registerEmployee = async (employeeData, client = pool) => {
   const { 
     personalDataId,
     positionId,
+    laboratoryId,
     email,
     password
   } = employeeData;
@@ -57,11 +64,11 @@ export const registerEmployee = async (employeeData, client = pool) => {
 
   const result = await client.query(
     `INSERT INTO pracownik 
-    (dane_osobowe_id, stanowisko_id, email, haslo, data_zatrudnienia) 
+    (dane_osobowe_id, stanowisko_id, laboratorium_id, email, haslo, data_zatrudnienia) 
     VALUES 
-    ($1, $2, $3, $4, $5) 
+    ($1, $2, $3, $4, $5, $6) 
     RETURNING id, email, data_zatrudnienia`, 
-    [personalDataId, positionId, email, passwordHash, new Date().toISOString().substring(0, 10)]
+    [personalDataId, positionId, laboratoryId, email, passwordHash, new Date().toISOString().substring(0, 10)]
   );
 
   const addedEmployee = translateResultRow(result.rows[0]);

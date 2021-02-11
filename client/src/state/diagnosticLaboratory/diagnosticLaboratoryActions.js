@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 // export const GET_DIAGNOSTIC_LABORATORIES = 'GET_DIAGNOSTIC_LABORATORIES';
 // export const GET_DIAGNOSTIC_LABORATORIES_REQUEST = 'GET_DIAGNOSTIC_LABORATORIES_REQUEST';
@@ -67,6 +67,7 @@ export const createDiagnosticLaboratory = laboratoryAttributes => async dispatch
       dispatch({
         type: CREATE_DIAGNOSTIC_LABORATORY_SUCCESS,
         payload: response.data,
+        message: 'Laboratorium zostało utworzone'
       });
 
       return Promise.resolve();
@@ -76,7 +77,8 @@ export const createDiagnosticLaboratory = laboratoryAttributes => async dispatch
 
       dispatch({
         type: CREATE_DIAGNOSTIC_LABORATORY_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: 'nie udalo sie zalogowac...',
+        message: 'Nie udało się utworzyć laboratorium'
       });
 
       return Promise.reject();
@@ -92,6 +94,7 @@ export const deleteDiagnosticLaboratory = laboratoryId => async dispatch => {
       dispatch({
         type: DELETE_DIAGNOSTIC_LABORATORY_SUCCESS,
         payload: response.data,
+        message: 'Laboratorium zostało usunięte'
       });
 
       return Promise.resolve();
@@ -101,7 +104,8 @@ export const deleteDiagnosticLaboratory = laboratoryId => async dispatch => {
 
       dispatch({
         type: DELETE_DIAGNOSTIC_LABORATORY_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: 'nie udalo sie zalogowac...',
+        message: 'Nie udało się usunąć laboratorium'
       });
 
       return Promise.reject();
@@ -132,7 +136,7 @@ export const getLaboratoriesWorkOccupancy = () => async dispatch => {
 
 
 export const getPendingExaminations = laboratoryId => async dispatch => {
-  return axios.get(`/laboratories/${laboratoryId}/examinations`)
+  return axios.get(`/laboratories/examinations`)
     .then(res => {
       dispatch({
         type: GET_PENDING_EXAMINATIONS_SUCCESS,
@@ -153,25 +157,13 @@ export const getPendingExaminations = laboratoryId => async dispatch => {
 }
 
 
-export const createExaminationResult = (examinationId, result) => async (dispatch, getState) => {
-  const auth = getState().auth;
-  if (!auth.isAuthentificated || !auth.user) {
-    return Promise.reject();
-  }
-
-  const token = auth.token;
-  console.log({ token });
-  const employeeId = auth.user.id;
-
-  const headers = {
-    'Authorization': token,
-  }
-
-  return axios.post(`/tests/results/${examinationId}`, { employeeId, result }, { headers })
+export const createExaminationResult = (examinationId, result) => async dispatch => {
+  return axios.post(`/examinations/results/${examinationId}`, { result })
     .then(res => {
       dispatch({
         type: CREATE_EXAMINATION_RESULT_SUCCESS,
         payload: res.data,
+        message: 'Wynik badania został zapisany',
       });
 
       return Promise.resolve();
@@ -181,6 +173,7 @@ export const createExaminationResult = (examinationId, result) => async (dispatc
       dispatch({
         type: CREATE_EXAMINATION_RESULT_FAILURE,
         payload: err.message,
+        message: 'Nie udało się zapisać wyniku',
       });
 
       return Promise.reject();

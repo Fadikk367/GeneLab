@@ -1,10 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-import { FormHeader, Form, Input, InputLabel, SubmitButton } from './AddTestForm.css';
-import { RelationSelect } from '..';
+import { FormHeader, Form, Input, InputLabel, SubmitButton, Select } from './AddTestForm.css';
 
 import { createTest } from 'state/examination/examinationActions'
 
@@ -12,7 +10,7 @@ import { createTest } from 'state/examination/examinationActions'
 const AddTestForm = () => {
   const materials = useSelector(state => state.common.materials);
   const examinationTypes = useSelector(state => state.common.examinationTypes);
-  const categories = useSelector(state => state.testCategory.categoryList);
+  const categories = useSelector(state => state.examinations.categories);
 
   const dispatch = useDispatch();
 
@@ -28,40 +26,47 @@ const AddTestForm = () => {
       <FormHeader>Dodaj nowe badanie:</FormHeader>
       <InputLabel>
         Nazwa badania:
-        <Input name='name' ref={register}/>
+        <Input name='name' ref={register} required/>
       </InputLabel>
       <InputLabel>
         Dolna granica:
-        <Input type='number' name='minValue' ref={register}/>
+        <Input type='number' name='minValue' ref={register} required/>
       </InputLabel>
       <InputLabel>
         Górna granica:
-        <Input type='number' name='maxValue' ref={register}/>
+        <Input type='number' name='maxValue' ref={register} required/>
       </InputLabel>
       <InputLabel>
         Jednostka:
-        <Input name='unit' ref={register}/>
+        <Input name='unit' ref={register} required/>
       </InputLabel>
       <InputLabel>
         Cena:
-        <Input name='price' ref={register}/>
+        <Input name='price' ref={register} required/>
       </InputLabel>
       <InputLabel>
         Materiał:
-        <select name='material' ref={register}>
+        <Select name='material' ref={register}>
           {materials.map(material => (
             <option key={material} value={material}>{material}</option>
           ))}
-        </select>
-        {/* <RelationSelect name='material' register={register} options={materials}/> */}
+        </Select>
       </InputLabel>
       <InputLabel>
         Rodzaj:
-        <select name='type' ref={register}>
+        <Select name='type' ref={register}>
           {examinationTypes.map(type => (
             <option key={type} value={type}>{type}</option>
           ))}
-        </select>
+        </Select>
+      </InputLabel>
+      <InputLabel>
+        Kategorie:
+        <Select name='categoryIds' ref={register} multiple size="5">
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.name}</option>
+          ))}
+        </Select>
         {/* <RelationSelect name='type' register={register} options={examinationTypes}/> */}
       </InputLabel>
       <SubmitButton>Dodaj</SubmitButton>

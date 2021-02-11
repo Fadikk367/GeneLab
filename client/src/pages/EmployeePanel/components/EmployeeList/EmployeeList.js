@@ -1,9 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionActions from '@material-ui/core/AccordionActions';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Divider from '@material-ui/core/Divider';
@@ -12,14 +11,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 import { List } from 'common/components';
-import { StyledAccordion, StyledButton } from './EmployeeList.css';
-
-import { deleteEmployee } from 'state/employee/employeeActions';
+import { StyledAccordion } from './EmployeeList.css';
 
 
 const EmployeeList = ({ employees }) => {
-  const dispatch = useDispatch();
-
   const listLabel = (
     <StyledAccordion disabled>
       <AccordionSummary
@@ -66,38 +61,26 @@ const EmployeeList = ({ employees }) => {
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <div style={{flex: '1'}}>
-          data zatrudnienia:<br />
-          {employee.employmentDate}
+        <div style={{width: '30px'}}>
         </div>
-        <div style={{flex: '1'}}>
+        <div style={{flex: '2'}}>
+          data zatrudnienia:<br />
+          {employee.employmentDate.substring(0, 10)}
+        </div>
+        <div style={{flex: '2'}}>
           premia:<br />
           {employee.bonus || 0}
         </div>
+        <div style={{flex: '3'}}>
+          <Link to={`/admin-panel/employees/${employee.id}/update`}>Zaktualizuj</Link>
+        </div>
       </AccordionDetails>
-      <Divider />
-      <AccordionActions>
-      <StyledButton 
-          size="medium" 
-          color="red"
-          startIcon={<EditIcon />}
-        >
-          Edit
-        </StyledButton>
-        <StyledButton 
-          size="medium"
-          startIcon={<DeleteIcon/>}
-          onClick={() => dispatch(deleteEmployee(employee.id))}
-        >
-          Delete
-        </StyledButton>
-      </AccordionActions>
     </StyledAccordion>
   ));
 
 
   return (
-    <List.Container width={'1000'}>
+    <List.Container width={'100%'}>
       <List.Title>Pracownicy ({employees.length})</List.Title>
       <List>
         {listLabel}

@@ -1,11 +1,14 @@
-import axios from 'axios';
+import axios from 'api/axiosInstance';
 
 export const ADD_PRODUCT_TO_BASKET = 'ADD_PRODUCT_TO_BASKET';
 export const REMOVE_PRODUCT_FROM_BASKET = 'REMOVE_PRODUCT_FROM_BASKET';
-export const CONFIRM_ORDER = 'CONFIRM_ORDER';
 export const ADD_PERSONAL_DATA = 'ADD_PERSONAL_DATA';
+export const SELECT_POINT = 'SELECT_POINT';
+export const CONFIRM_ORDER = 'CONFIRM_ORDER';
+export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 export const PLACE_ORDER_FAILURE = 'PLACE_ORDER_FAILURE';
+export const CLEAR_ORDER_INFORMATIONS = 'CLEAR_ORDER_INFORMATIONS';
 
 
 
@@ -36,8 +39,24 @@ export const addPersonalData = personalData => {
   }
 }
 
-export const confirmOrder = (personalData, products) => async dispatch => {
-  return axios.post('/orders', { personalData, products })
+export const selectBloodCollectionPoint = point => {
+  return {
+    type: SELECT_POINT,
+    payload: {
+      point,
+    },
+  }
+}
+
+export const clearOrderInformations = () => {
+  return {
+    type: CLEAR_ORDER_INFORMATIONS,
+    payload: {},
+  }
+}
+
+export const confirmOrder = (personalData, products, point) => async dispatch => {
+  return axios.post('/orders', { personalData, products, point })
     .then(response => {
       console.log(response);
 

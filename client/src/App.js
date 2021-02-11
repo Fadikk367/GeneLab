@@ -1,15 +1,28 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
-import { Home, TestCatalog, About, Cart, OnlineResults, AdministrationPanel, NotFound, DiagnosticLaboratories, Login } from './pages';
+import { 
+  Home, 
+  TestCatalog,  
+  Cart, 
+  OnlineResults,
+  AdministrationPanel, 
+  NotFound, 
+  DiagnosticLaboratory, 
+  Login, 
+  Reports 
+} from './pages';
 
 import { BasketPreview, ProtectedRoute, Navigation, Logo, EmployeeInfoBox } from 'common/components';
 import { Layout, Sidebar, Center, Page, Header, Footer } from './Layout.css';
 import GlobalStyles from'./index.css.js';
 
-import { getAllTestCategories } from 'state/testCategory/testCategoryActions';
+import { getAllExaminationCategories } from 'state/examination/examinationActions';
+import { getAllDiagnosticLaboratories } from 'state/diagnosticLaboratory/diagnosticLaboratoryActions';
 
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
@@ -17,52 +30,63 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllTestCategories());
+    dispatch(getAllExaminationCategories());
+    dispatch(getAllDiagnosticLaboratories());
   }, [dispatch]);
 
   const publicLinks = [
     { path: '/', text: 'Strona główna'},
     { path: '/test-catalog', text: 'Katalog badań'},
     { path: '/results', text: 'Wyniki online'},
-    { path: '/about', text: 'O nas'},
-  ]
-  const privateLinks = [
-    { path: '/admin-panel', text: 'Panel Administracyjny'},
-    { path: '/laboratories', text: 'Pracownie'},
   ]
 
-  const links = auth.isAuthentificated ? [...publicLinks, ...privateLinks] : publicLinks;
+  const loginLink = { path: '/login', text: 'Zaloguj się'}
+
+  const privateLinks = [
+    { path: '/admin-panel', text: 'Panel Administracyjny'},
+    { path: '/laboratory', text: 'Laboratorium'},
+    { path: '/reports', text: 'Raporty'},
+  ]
+
+  const links = auth.isAuthentificated ? [...publicLinks, ...privateLinks] : [...publicLinks, loginLink];
 
   return (
     <Layout>
       <GlobalStyles />
       <Sidebar>
-        <Logo />
         <Navigation links={links}/>
         {auth.isAuthentificated ? <EmployeeInfoBox user={auth.user}/> : null}
       </Sidebar>
       <Center>
         <Header>
-          ""
+          <Logo />
           <BasketPreview />
         </Header>
         <Page>
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/test-catalog' exact component={TestCatalog} />
-            <Route path='/results' exact component={OnlineResults} />
-            <ProtectedRoute path='/laboratories' auth={auth} component={DiagnosticLaboratories} />
-            <ProtectedRoute path='/admin-panel' auth={auth} component={AdministrationPanel} />
-            <Route path='/login' component={Login} />
             <Route path='/cart' component={Cart} />
-            <Route path='/about' component={About} />
+            <Route path='/results' exact component={OnlineResults} />
+            <Route path='/login' component={Login} />
+            <ProtectedRoute path='/admin-panel' auth={auth} component={AdministrationPanel} />
+            <ProtectedRoute path='/laboratory' auth={auth} component={DiagnosticLaboratory} />
+            <ProtectedRoute path='/reports' auth={auth} component={Reports} />
             <Route component={NotFound} />
           </Switch>
         </Page>
-          <Footer>
-            Stopka
-          </Footer>
       </Center>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Layout>
   );
 }

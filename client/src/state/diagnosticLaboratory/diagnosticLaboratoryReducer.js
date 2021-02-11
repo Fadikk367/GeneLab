@@ -1,15 +1,11 @@
 import {
   GET_DIAGNOSTIC_LABORATORIES_SUCCESS,
-  GET_DIAGNOSTIC_LABORATORIES_FAILURE,
+  CREATE_DIAGNOSTIC_LABORATORY_SUCCESS,
+  DELETE_DIAGNOSTIC_LABORATORY_SUCCESS,
 
+  CREATE_EXAMINATION_RESULT_SUCCESS,
   GET_PENDING_EXAMINATIONS_SUCCESS,
   GET_WORK_OCCUPANCY_SUCCESS,
-
-  CREATE_DIAGNOSTIC_LABORATORY_SUCCESS,
-  CREATE_DIAGNOSTIC_LABORATORY_FAILURE,
-
-  DELETE_DIAGNOSTIC_LABORATORY_SUCCESS,
-  DELETE_DIAGNOSTIC_LABORATORY_FAILURE,
 } from './diagnosticLaboratoryActions';
 
 
@@ -17,6 +13,7 @@ const initialState = {
   laboratoryList: [],
   workOccupancyByLaboratoryId: {},
   pendingExaminationsByLaboratoryId: {},
+  pendingExaminations: [],
 }
 
 const diagnosticLaboratoryReducer = (state = initialState, action) => {
@@ -26,11 +23,6 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
         ...state,
         laboratoryList: action.payload,
       }
-    case GET_DIAGNOSTIC_LABORATORIES_FAILURE:
-      return {
-        ...state,
-        laboratoryList: []
-      }
     case GET_WORK_OCCUPANCY_SUCCESS:
       const workOccupancyByLaboratoryId = action.payload;
 
@@ -39,14 +31,11 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
         workOccupancyByLaboratoryId,
       }
     case GET_PENDING_EXAMINATIONS_SUCCESS:
-      const { pendingExaminations, laboratoryId } = action.payload;
+      const pendingExaminations = action.payload;
   
       return {
         ...state,
-        pendingExaminationsByLaboratoryId: {
-          ...state.pendingExaminationsByLaboratoryId,
-          [laboratoryId]: pendingExaminations
-        }
+        pendingExaminations,
       }
     case CREATE_DIAGNOSTIC_LABORATORY_SUCCESS:
       const createdDiagnosticLaboratory = action.payload;
@@ -54,19 +43,18 @@ const diagnosticLaboratoryReducer = (state = initialState, action) => {
         ...state,
         laboratoryList: [...state.laboratoryList, createdDiagnosticLaboratory]
       }
-    case CREATE_DIAGNOSTIC_LABORATORY_FAILURE:
-      return {
-        ...state,
-      }
     case DELETE_DIAGNOSTIC_LABORATORY_SUCCESS:
       const deletedDiagnosticLaboratoryId = action.payload;
       return {
         ...state,
         laboratoryList: state.laboratoryList.filter(material => material.id !== deletedDiagnosticLaboratoryId)
       }
-    case DELETE_DIAGNOSTIC_LABORATORY_FAILURE:
+    case CREATE_EXAMINATION_RESULT_SUCCESS:
+      const doneExaminationId = action.payload;
+
       return {
         ...state,
+        pendingExaminations: state.pendingExaminations.filter(examination => examination.id !== doneExaminationId)
       }
     default:
       return state;

@@ -19,19 +19,19 @@ const PersonalDataForm = () => {
     <form onSubmit={handleSubmitForm}>
       <label>
         Imię:<br />
-        <input type="text" name='firstName' ref={register}/>
+        <input type="text" name='firstName' required ref={register}/>
       </label><br />
       <label>
         Nazwisko:<br />
-        <input type="text" name='lastName' ref={register}/>
+        <input type="text" name='lastName' required ref={register}/>
       </label><br />
       <label>
         Data urodzenia:<br />
-        <input type="date" name='dateOfBirth' ref={register}/>
+        <input type="date" name='dateOfBirth' required ref={register}/>
       </label><br />
       <label>
         PESEL:<br />
-        <input type="text" name='pesel' ref={register}/>
+        <input type="text" name='pesel' required maxLength="11" minLength="11" ref={register}/>
       </label><br />
       <button type='submit'>Potwierdź</button>
     </form>

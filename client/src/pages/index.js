@@ -1,7 +1,6 @@
 export { default as Home } from './Home';
 export { default as OnlineResults } from './OnlineResults';
 export { default as TestCatalog } from './TestCatalog';
-export { default as DiagnosticLaboratories } from './DiagnosticLaboratories';
 export { default as DiagnosticLaboratory } from './DiagnosticLaboratory';
 export { default as Login } from './Login';
 export { default as Cart } from './Cart';
@@ -14,3 +13,4 @@ export { default as EmployeePositionPanel } from './EmployeePositionsPanel';
 export { default as EmployeePanel } from './EmployeePanel';
 export { default as TestPanel } from './TestPanel';
 export { default as NotFound } from './NotFound';
+export { default as Reports } from './Reports';

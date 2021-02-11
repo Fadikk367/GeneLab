@@ -4,9 +4,7 @@ import { useSelector } from 'react-redux';
 import { CategoryListHeader, CategoryList, CategoryItem } from './TestListFilterForm.css';
 
 
-const TestListFilterForm = ({ handleSelectCategory }) => {
-  const categories = useSelector(state => state.testCategory.categoryList);
-
+const TestListFilterForm = ({ handleSelectCategory, categories }) => {
   const renderedCategories = categories.map(category => (
     <CategoryItem 
       key={category.id}

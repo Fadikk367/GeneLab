@@ -32,9 +32,19 @@ const dictionary = {
   koszt: 'price',
   rodzaj: 'type',
   miasto: 'city',
+  ulica: 'street',
+  numer: 'number',
   adres: 'address',
   liczba_aparatow: 'numberOfDevices',
   laboratorium_id: 'laboratoryId',
+  kategoria_id: 'categoryId',
+  kod_dostepu: 'accessCode',
+  kwota: 'amount',
+  wykonane_badania: 'doneExaminations',
+  liczba_pracownikow: 'employeesCount',
+  liczba_punktow: 'pointsCount',
+  suma_zlecen: 'examinationOrdersCount',
+  przychod: 'income',
 }
 
 export const translateResultRow = result => {
@@ -44,8 +54,6 @@ export const translateResultRow = result => {
     const translatedKey = dictionary[key] || key;
     translated[translatedKey] = result[key];
   }
-
-  console.log(translated);
 
   return translated;
 }

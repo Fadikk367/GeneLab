@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { List } from 'common/components';
+import { List, ListItem } from 'common/components';
 import { DiagnosticLaboratoryItem } from '../';
 
+const { Lp, Cell } = ListItem;
 
 const DiagnosticLaboratoryList = ({ laboratories = [] }) => {
   const renderedItems = laboratories.map((laboratory, idx) => (
@@ -11,8 +12,14 @@ const DiagnosticLaboratoryList = ({ laboratories = [] }) => {
 
   return (
     <List.Container>
-      <List.Title>Pracownie diagnostyczne ({laboratories.length})</List.Title>
+      <List.Title>Laboratoria diagnostyczne ({laboratories.length})</List.Title>
       <List>
+        <ListItem header>
+          <Lp>Lp.</Lp>
+          <Cell flex={1}>Adres</Cell>
+          <Cell>Liczba urządzeń</Cell>
+          <Cell></Cell>
+        </ListItem>
         {renderedItems}
       </List>
     </List.Container>
