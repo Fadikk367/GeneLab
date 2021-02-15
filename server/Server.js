@@ -31,7 +31,7 @@ class Server {
   }
 
   initializeMiddlewares() {
-    this.app.use(express.static('client/build'));
+    this.app.use(express.static('../client/build'));
     this.app.use(cors());
     this.app.use(morgan('dev'));
     this.app.use(express.json());
@@ -50,7 +50,7 @@ class Server {
   setReactAppFilesServing() {
     this.app.get('*', (reg, res) => {
       // res.sendFile('client/build/index.html', { root: './' });
-      res.sendFile(path.join('./', 'client', 'build', 'index.html'), { root: './' });
+      res.sendFile(path.join('../', 'client', 'build', 'index.html'), { root: './' });
     });
   }
 

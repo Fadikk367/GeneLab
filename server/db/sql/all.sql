@@ -35,11 +35,12 @@ CREATE TYPE zamowienie_metadane AS (
 );
 
 CREATE TABLE "dane_osobowe" (
-  "id" SERIAL PRIMARY KEY,
+  "id" SERIAL UNIQUE,
+  "pesel" varchar(11) UNIQUE NOT NULL,
   "imie" varchar(20) NOT NULL,
   "nazwisko" varchar(20) NOT NULL,
-  "pesel" varchar(11) UNIQUE NOT NULL,
-  "data_urodzenia" date NOT NULL
+  "data_urodzenia" date NOT NULL,
+  PRIMARY KEY ("id", "pesel")
 );
 
 CREATE TABLE "pracownik" (

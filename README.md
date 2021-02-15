@@ -1,1 +1,1 @@
-README
+Final project for Databases 1 university course
