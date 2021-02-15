@@ -12,7 +12,8 @@ import {
   NotFound, 
   DiagnosticLaboratory, 
   Login, 
-  Reports 
+  Reports,
+  Order,
 } from './pages';
 
 import { BasketPreview, ProtectedRoute, Navigation, Logo, EmployeeInfoBox } from 'common/components';
@@ -38,6 +39,7 @@ const App = () => {
     { path: '/', text: 'Strona główna'},
     { path: '/test-catalog', text: 'Katalog badań'},
     { path: '/results', text: 'Wyniki online'},
+    { path: '/order', text: 'Zamówienie'},
   ]
 
   const loginLink = { path: '/login', text: 'Zaloguj się'}
@@ -68,6 +70,7 @@ const App = () => {
             <Route path='/test-catalog' exact component={TestCatalog} />
             <Route path='/cart' component={Cart} />
             <Route path='/results' exact component={OnlineResults} />
+            <Route path='/order' exact component={Order} />
             <Route path='/login' component={Login} />
             <ProtectedRoute path='/admin-panel' auth={auth} component={AdministrationPanel} />
             <ProtectedRoute path='/laboratory' auth={auth} component={DiagnosticLaboratory} />

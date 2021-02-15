@@ -14,3 +14,4 @@ export { default as EmployeePanel } from './EmployeePanel';
 export { default as TestPanel } from './TestPanel';
 export { default as NotFound } from './NotFound';
 export { default as Reports } from './Reports';
+export { default as Order } from './Order';
