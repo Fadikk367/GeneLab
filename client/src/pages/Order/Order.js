@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import lodash from 'lodash';
 
 import { Cart, PersonalDataForm, LocationForm, OrderSummary, PaymentMethodForm } from './components';
@@ -25,30 +26,37 @@ function getStepContent(stepIndex, formContent) {
 }
 
 const InnerOrder = () => {
+  // const examinationsInCart = useSelector(state => state.basket.products) || [];
+
   const formMethods = useFormContext();
+  // const [formData, setFormData] = useState({ products: examinationsInCart });
   const [formData, setFormData] = useState({});
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
-  const { errors, watch } = formMethods;
-  const activeStepForm= watch();
+  const { errors, watch, trigger } = formMethods;
+  const activeStepForm = watch();
 
-  const handleNextStep = () => {
+  console.log(errors);
+
+  const handleNextStep = async () => {
     let isStepFinished = true;
 
     switch(activeStepIndex) {
       case 0:
+        isStepFinished = await trigger('products');
+        setFormData({ ...formData, ...activeStepForm});
         break;
       case 1:
+        isStepFinished = await trigger(['firstName', 'lastName', 'pesel', 'birthDate']);
         setFormData({ ...formData, personalData: activeStepForm});
-        isStepFinished = lodash.isEmpty(errors);
         break;
       case 2:
+        isStepFinished = await trigger(['selectedPoint', 'selectedPoint.city']);
         setFormData({ ...formData, ...activeStepForm});
-        isStepFinished = lodash.isEmpty(errors);
         break;
       case 3:
+        isStepFinished = await trigger(['paymentMethod']);
         setFormData({ ...formData, ...activeStepForm});
-        isStepFinished = lodash.isEmpty(errors);
         break;
       case 4:
         isStepFinished = lodash.isEmpty(errors);
@@ -76,7 +84,7 @@ const InnerOrder = () => {
           setFormData({ ...formData, personalData: activeStepForm});
           break;
         case 2:
-          setFormData({ ...formData, selectedPoint: activeStepForm});
+          setFormData({ ...formData, ...activeStepForm});
           break;
         case 3:
           setFormData({ ...formData, ...activeStepForm});

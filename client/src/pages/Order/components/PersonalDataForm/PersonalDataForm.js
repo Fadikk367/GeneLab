@@ -10,11 +10,11 @@ const PersonalDataForm = ({ formContent }) => {
   }, []);
 
   return (
-    <form onBlur={() => trigger()}>
+    <form>
       <h3>Uzupełnij dane osobowe</h3>
       <label>
         Imię:<br />
-        <input type="text" name='firstName' ref={register({ required: 'Imię jest wymagane' })} autoFocus/>
+        <input type="text" name='firstName' ref={register({ required: 'Imię jest wymagane' })}/>
         <p>{errors.firstName && errors.firstName.message}</p>
       </label><br />
       <label>
