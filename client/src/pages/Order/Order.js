@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import lodash from 'lodash';
 
 import { Cart, PersonalDataForm, LocationForm, OrderSummary, PaymentMethodForm } from './components';
+import { Layout, OrderStepper, StepContent, ControlButtons } from './Order.css';
+import { Button } from 'common/components';
 
-import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 
 
 
@@ -26,17 +25,15 @@ function getStepContent(stepIndex, formContent) {
 }
 
 const InnerOrder = () => {
-  // const examinationsInCart = useSelector(state => state.basket.products) || [];
 
   const formMethods = useFormContext();
-  // const [formData, setFormData] = useState({ products: examinationsInCart });
+
   const [formData, setFormData] = useState({});
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const { errors, watch, trigger } = formMethods;
   const activeStepForm = watch();
 
-  console.log(errors);
 
   const handleNextStep = async () => {
     let isStepFinished = true;
@@ -99,23 +96,22 @@ const InnerOrder = () => {
 
 
   return (
-    <>
-      <h2>Order page</h2>
-      <Stepper activeStep={activeStepIndex} alternativeLabel>
+    <Layout>
+      <OrderStepper activeStep={activeStepIndex} alternativeLabel>
         {stepLabels.map(label => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}
-      </Stepper>
-      <div>
+      </OrderStepper>
+      <StepContent>
         {getStepContent(activeStepIndex, formData)}
-      </div>
-      <div>
+      </StepContent>
+      <ControlButtons>
         <Button onClick={handlePreviousStep}>Cofnij</Button>
-        <Button onClick={handleNextStep}>{activeStepIndex === stepLabels.length - 1? 'Złóż zamówienie' : 'Dalej'}</Button>
-      </div>
-    </>
+        <Button onClick={handleNextStep}>{activeStepIndex === stepLabels.length - 1? 'Złóż zamówienie' : 'Kolejny krok'}</Button>
+      </ControlButtons>
+    </Layout>
   )
 }
 
