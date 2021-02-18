@@ -1,21 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { ListTitle, PaymentMethods, MethodCard } from './PaymentMethodForm.css';
+
+
 const PaymentMethodForm = ({ formContent }) => {
-  const { register, trigger, reset } = useFormContext();
+  const { register, reset, setValue, errors } = useFormContext();
+  const [selectedMethod, setSelectedMethod] = useState(formContent.paymentMethod);
 
   useEffect(() => {
     reset({ ...formContent.paymentMethod }, { errors: true });
+    register({ name: 'paymentMethod', type: 'custom', value: formContent.paymentMethod }, { required: 'Wybierz metodę płatności'});
   }, []);
 
+  const handleSelectPaymentMethod = method => {
+    setValue('paymentMethod', method);
+    setSelectedMethod(method);
+  }
+
+  console.log(formContent.paymentMethod === 'gotowka');
+
   return (
-    <form>
-      <select name="paymentMethod" ref={register({ required: true })} onBlur={() => trigger('paymentMethod')} autoFocus>
-        <option value='gotowka'>gotowka</option>
-        <option value='przelew'>przelew</option>
-        <option value='blik'>blik</option>
-      </select>
-    </form>
+    <>
+      <ListTitle variant='h6'>Wybierz metodę płatności:</ListTitle>
+      <PaymentMethods>
+        <MethodCard 
+          onClick={() => handleSelectPaymentMethod('gotowka')}
+          isSelected={selectedMethod === 'gotowka'}
+        >
+          gotowka
+        </MethodCard>
+        <MethodCard 
+          onClick={() => handleSelectPaymentMethod('przelew')}
+          isSelected={selectedMethod === 'przelew'}
+        >
+          przelew
+        </MethodCard>
+        <MethodCard 
+          onClick={() => handleSelectPaymentMethod('blik')}
+          isSelected={selectedMethod === 'blik'}
+        >
+          BLIK
+        </MethodCard>
+      </PaymentMethods>
+      <div>{errors.paymentMethod && errors.paymentMethod.message}</div>
+    </>
   )
 }
 
