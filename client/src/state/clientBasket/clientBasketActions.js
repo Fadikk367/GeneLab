@@ -30,24 +30,6 @@ export const removeProductFromBasket = testId => {
   }
 }
 
-export const addPersonalData = personalData => {
-  return {
-    type: ADD_PERSONAL_DATA,
-    payload: {
-      personalData,
-    },
-  }
-}
-
-export const selectBloodCollectionPoint = point => {
-  return {
-    type: SELECT_POINT,
-    payload: {
-      point,
-    },
-  }
-}
-
 export const clearOrderInformations = () => {
   return {
     type: CLEAR_ORDER_INFORMATIONS,
@@ -55,11 +37,11 @@ export const clearOrderInformations = () => {
   }
 }
 
-export const confirmOrder = (personalData, products, point) => async dispatch => {
-  return axios.post('/orders', { personalData, products, point })
-    .then(response => {
-      console.log(response);
+export const confirmOrder = orderData => async dispatch => {
+  dispatch({ type: PLACE_ORDER_REQUEST });
 
+  return axios.post('/orders', orderData)
+    .then(response => {
       dispatch({
         type: PLACE_ORDER_SUCCESS,
         payload: response.data,
@@ -72,7 +54,8 @@ export const confirmOrder = (personalData, products, point) => async dispatch =>
 
       dispatch({
         type: PLACE_ORDER_FAILURE,
-        payload: 'nie udalo sie zalogowac...'
+        payload: err,
+        messgae: 'Podczas składania zamówienia wystąpił bład...'
       });
 
       return Promise.reject();

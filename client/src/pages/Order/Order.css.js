@@ -55,6 +55,7 @@ export const StepContent = styled.div`
 
 export const ControlButtons = styled.div`
   display: flex;
+  position: sticky;
   flex-direction: column;
   gap: 5px;
 `;

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import lodash from 'lodash';
 
-import { Cart, PersonalDataForm, LocationForm, OrderSummary, PaymentMethodForm } from './components';
+import { Cart, PersonalDataForm, LocationForm, OrderSummary, OrderConfirmation, PaymentMethodForm } from './components';
 import { Layout, OrderStepper, StepContent, ControlButtons } from './Order.css';
 import { Button } from 'common/components';
 
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
+import { confirmOrder, clearOrderInformations } from 'state/clientBasket/clientBasketActions';
 
 
 const stepLabels = ['Koszyk', 'Uzupełnij dane personalne', 'Wybierz punkt', 'Wybierz metodę płatności', 'Potwierdź zamówienie'];
@@ -20,13 +23,24 @@ function getStepContent(stepIndex, formContent) {
     case 2: return <LocationForm {...{ formContent }}/>;
     case 3: return <PaymentMethodForm {...{ formContent }}/>;
     case 4: return <OrderSummary {...{ formContent }}/>;
+    case 5: return <OrderConfirmation />;
     default: return <div>Error</div>;
   }
 }
 
-const InnerOrder = () => {
+function getNextButtonText(stepIndex) {
+  switch(stepIndex) {
+    case 4: return 'Złóż zamówienie';
+    case 5: return 'OK';
+    default: return 'kolejny krok'
+  }
+}
 
+
+const Order = () => {
   const formMethods = useFormContext();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({});
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -48,7 +62,7 @@ const InnerOrder = () => {
         setFormData({ ...formData, personalData: activeStepForm});
         break;
       case 2:
-        isStepFinished = await trigger(['selectedPoint', 'selectedPoint.city']);
+        isStepFinished = await trigger('selectedPoint');
         setFormData({ ...formData, ...activeStepForm});
         break;
       case 3:
@@ -59,11 +73,16 @@ const InnerOrder = () => {
         isStepFinished = lodash.isEmpty(errors);
 
         if (isStepFinished) {
-          console.log('SUBMIT ORDER FORM', { formData })
+          console.log('SUBMIT ORDER FORM', { formData });
+          dispatch(confirmOrder(formData));
         }
         break;
+      case 5:
+        dispatch(clearOrderInformations());
+        history.push('/test-catalog');
+        break;
       default:
-        return 'Invalid step';
+        isStepFinished = false;
     }
 
     if (isStepFinished) {
@@ -108,21 +127,21 @@ const InnerOrder = () => {
         {getStepContent(activeStepIndex, formData)}
       </StepContent>
       <ControlButtons>
-        <Button onClick={handlePreviousStep}>Cofnij</Button>
-        <Button onClick={handleNextStep}>{activeStepIndex === stepLabels.length - 1? 'Złóż zamówienie' : 'Kolejny krok'}</Button>
+        <Button onClick={handlePreviousStep} style={{ display: `${activeStepIndex === stepLabels.length ? 'none' : 'block'}`}}>Cofnij</Button>
+        <Button onClick={handleNextStep}>{getNextButtonText(activeStepIndex)}</Button>
       </ControlButtons>
     </Layout>
   )
 }
 
-const Order = () => {
+const OrderWrapper = () => {
   const formMethods = useForm({ mode: 'onBlur' });
 
   return (
     <FormProvider {...formMethods}>
-      <InnerOrder />
+      <Order />
     </FormProvider>
   )
 }
 
-export default Order;
+export default OrderWrapper;
