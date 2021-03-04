@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import { 
   Home, 
   TestCatalog,  
-  Cart, 
   OnlineResults,
   AdministrationPanel, 
   NotFound, 
@@ -68,7 +67,6 @@ const App = () => {
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/test-catalog' exact component={TestCatalog} />
-            <Route path='/cart' component={Cart} />
             <Route path='/results' exact component={OnlineResults} />
             <Route path='/order' exact component={Order} />
             <Route path='/login' component={Login} />

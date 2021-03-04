@@ -9,7 +9,7 @@ const BasketPreview = () => {
   const productsInBasket = useSelector(state => state.basket.products);
 
   return (
-    <PreviewContainer to='/cart'>
+    <PreviewContainer to='/order'>
       KOSZYK
       <Icon.Basket size={30} clickable fill='white'/>
       <ProductsCount>{productsInBasket.length}</ProductsCount>
