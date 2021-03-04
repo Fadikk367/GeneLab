@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useFormContext  } from 'react-hook-form';
 
+import TextField from '@material-ui/core/TextField';
+import { ListTitle } from './PersonalDataForm.css';
 
 const PersonalDataForm = ({ formContent }) => {
-  const { register, errors, reset, trigger } = useFormContext();
+  const { register, errors, reset } = useFormContext();
 
   useEffect(() => {
     reset({ ...formContent.personalData }, { errors: true });
@@ -11,27 +13,39 @@ const PersonalDataForm = ({ formContent }) => {
 
   return (
     <form>
-      <h3>Uzupełnij dane osobowe</h3>
-      <label>
-        Imię:<br />
-        <input type="text" name='firstName' ref={register({ required: 'Imię jest wymagane' })}/>
-        <p>{errors.firstName && errors.firstName.message}</p>
-      </label><br />
-      <label>
-        Nazwisko:<br />
-        <input type="text" name='lastName' ref={register({ required: 'Nazwisko jest wymagane' })}/>
-        <p>{errors.lastName && errors.lastName.message}</p>
-      </label><br />
-      <label>
-        Numer PESEL:<br />
-        <input type="text" name='pesel' ref={register({ required: 'Pesel jest wymagany', minLength: { value: 11, message: 'Pesel musi mieć dokładnie 11 znaków' } })}/>
-        <p>{errors.pesel && errors.pesel.message}</p>
-      </label><br />
-      <label>
-        Data urodzenia:<br />
-        <input type="date" name='birthDate' ref={register({ required: 'Data urodzenia jest wymagana' })}/>
-        <p>{errors.birthDate && errors.birthDate.message}</p>
-      </label><br />
+      <ListTitle variant='h6'>Uzupełnij dane osobowe</ListTitle>
+      <TextField 
+        inputRef={register({ required: 'Imię jest wymagane' })}
+        name='firstName'
+        label='Imię'
+        helperText={(errors.firstName && errors.firstName.message) || ' '}
+        fullWidth
+      />
+      <TextField 
+        inputRef={register({ required: 'Nazwisko jest wymagane' })}
+        name='lastName'
+        label='Nazwisko'
+        helperText={(errors.lastName && errors.lastName.message) || ' '}
+        fullWidth
+      />
+      <TextField 
+        inputRef={register({ required: 'Pesel jest wymagany' })}
+        name='pesel'
+        label='PESEL'
+        helperText={(errors.pesel && errors.pesel.message) || ' '}
+        fullWidth
+      />
+      <TextField 
+        inputRef={register({ required: 'Data urodzenia jest wymagana' })}
+        name='birthDate'
+        label='Data urodzenia'
+        type='date'
+        helperText={(errors.birthDate && errors.birthDate.message) || ' '}
+        fullWidth
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
     </form>
   )
 }
