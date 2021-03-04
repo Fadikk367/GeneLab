@@ -37,10 +37,10 @@ const PaymentMethodForm = ({ formContent }) => {
           przelew
         </MethodCard>
         <MethodCard 
-          onClick={() => handleSelectPaymentMethod('blik')}
-          isSelected={selectedMethod === 'blik'}
+          onClick={() => handleSelectPaymentMethod('karta')}
+          isSelected={selectedMethod === 'karta'}
         >
-          BLIK
+          karta
         </MethodCard>
       </PaymentMethods>
       <div>{errors.paymentMethod && errors.paymentMethod.message}</div>
