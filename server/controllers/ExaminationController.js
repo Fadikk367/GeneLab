@@ -37,14 +37,18 @@ class ExaminationController {
 
   async getByCategory(req, res, next) {
     const categoryId = parseInt(req.params.categoryId);
+    const page = parseInt(req.query.page);
+    const items = parseInt(req.query.items);
 
     try {
       const result = await pool.query(
         `SELECT * FROM badanie_kategoria BAD_KAT
         JOIN badanie BAD ON BAD_KAT.badanie_id = BAD.id
         WHERE BAD_KAT.kategoria_id = $1
-        ORDER BY BAD.nazwa;`,
-        [categoryId]
+        ORDER BY BAD.nazwa
+        LIMIT $2
+        OFFSET $3`,
+        [categoryId, items, (page-1)*items]
       );
 
       const examinations = translateResultRows(result.rows);
