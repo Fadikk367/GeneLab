@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { 
   Home, 
-  TestCatalog,  
+  ExaminationsOffer,  
   OnlineResults,
   AdministrationPanel, 
   NotFound, 
@@ -36,9 +36,8 @@ const App = () => {
 
   const publicLinks = [
     { path: '/', text: 'Strona główna'},
-    { path: '/test-catalog', text: 'Katalog badań'},
+    { path: '/offer', text: 'Oferta badań'},
     { path: '/results', text: 'Wyniki online'},
-    { path: '/order', text: 'Zamówienie'},
   ]
 
   const loginLink = { path: '/login', text: 'Zaloguj się'}
@@ -66,7 +65,7 @@ const App = () => {
         <Page>
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/test-catalog' exact component={TestCatalog} />
+            <Route path='/offer' exact component={ExaminationsOffer} />
             <Route path='/results' exact component={OnlineResults} />
             <Route path='/order' exact component={Order} />
             <Route path='/login' component={Login} />

@@ -1,6 +1,6 @@
 export { default as Home } from './Home';
 export { default as OnlineResults } from './OnlineResults';
-export { default as TestCatalog } from './TestCatalog';
+export { default as ExaminationsOffer } from './ExaminationsOffer';
 export { default as DiagnosticLaboratory } from './DiagnosticLaboratory';
 export { default as Login } from './Login';
 export { default as About } from './About/About';
