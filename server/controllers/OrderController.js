@@ -38,9 +38,11 @@ class OrderController {
   }
 
   async createOrder(req, res, next) {
-    const { personalData, products, point } = req.body;
-    const laboratoryId = point.laboratoryId;
-    const bloodCollectionPointId = point.id;
+    const { personalData, products, selectedPoint, paymentMethod } = req.body;
+    console.log(req.body);
+    const laboratoryId = selectedPoint.laboratoryId;
+    const bloodCollectionPointId = selectedPoint.id;
+
     const client = await pool.connect();
   
     try {
@@ -67,7 +69,7 @@ class OrderController {
   
       await client.query(
         `INSERT INTO platnosc (zamowienie_id, rodzaj, kwota) VALUES ($1, $2, $3)`, 
-        [order.id, 'przelew', totalPrice]
+        [order.id, paymentMethod, totalPrice]
       );
   
       for (let product of products) {

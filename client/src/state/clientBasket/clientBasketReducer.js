@@ -13,9 +13,7 @@ import {
 
 const initialState = {
   products: [],
-  personalData: null,
-  selectedPoint: null,
-  isLoading: null,
+  isLoading: false,
   placedOrderDetails: null,
 }
 
@@ -34,21 +32,6 @@ const clientBasketReducer = (state = initialState, action) => {
         ...state,
         products: state.products.filter(product => product.id !== removedProductId)
       }
-    case ADD_PERSONAL_DATA:
-      return {
-        ...state,
-        personalData: action.payload.personalData,
-      }
-    case SELECT_POINT:
-      return {
-        ...state,
-        selectedPoint: action.payload.point,
-      }
-    case CONFIRM_ORDER:
-      return {
-        ...state,
-        isLoading: true,
-      }
     case PLACE_ORDER_REQUEST:
       return {
         ...state,
@@ -59,7 +42,6 @@ const clientBasketReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         products: [],
-        personalData: null,
         placedOrderDetails: action.payload.createdOrder,
       }
     case PLACE_ORDER_FAILURE:
