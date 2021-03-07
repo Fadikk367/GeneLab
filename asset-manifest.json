@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/GeneLab/static/js/main.dc067488.chunk.js",
-    "main.js.map": "/GeneLab/static/js/main.dc067488.chunk.js.map",
+    "main.js": "/GeneLab/static/js/main.b4d98c86.chunk.js",
+    "main.js.map": "/GeneLab/static/js/main.b4d98c86.chunk.js.map",
     "runtime-main.js": "/GeneLab/static/js/runtime-main.be038cd0.js",
     "runtime-main.js.map": "/GeneLab/static/js/runtime-main.be038cd0.js.map",
     "static/css/2.a5804542.chunk.css": "/GeneLab/static/css/2.a5804542.chunk.css",
-    "static/js/2.b894414b.chunk.js": "/GeneLab/static/js/2.b894414b.chunk.js",
-    "static/js/2.b894414b.chunk.js.map": "/GeneLab/static/js/2.b894414b.chunk.js.map",
+    "static/js/2.fbab8346.chunk.js": "/GeneLab/static/js/2.fbab8346.chunk.js",
+    "static/js/2.fbab8346.chunk.js.map": "/GeneLab/static/js/2.fbab8346.chunk.js.map",
     "static/js/3.aa91d3f3.chunk.js": "/GeneLab/static/js/3.aa91d3f3.chunk.js",
     "static/js/3.aa91d3f3.chunk.js.map": "/GeneLab/static/js/3.aa91d3f3.chunk.js.map",
     "index.html": "/GeneLab/index.html",
     "static/css/2.a5804542.chunk.css.map": "/GeneLab/static/css/2.a5804542.chunk.css.map",
-    "static/js/2.b894414b.chunk.js.LICENSE.txt": "/GeneLab/static/js/2.b894414b.chunk.js.LICENSE.txt",
+    "static/js/2.fbab8346.chunk.js.LICENSE.txt": "/GeneLab/static/js/2.fbab8346.chunk.js.LICENSE.txt",
     "static/media/example-photo-1.122842f6.jpg": "/GeneLab/static/media/example-photo-1.122842f6.jpg",
     "static/media/example-photo-2.12639b6e.jpg": "/GeneLab/static/media/example-photo-2.12639b6e.jpg",
     "static/media/user-placeholder.6e0bf5d5.png": "/GeneLab/static/media/user-placeholder.6e0bf5d5.png"
@@ -19,7 +19,7 @@
   "entrypoints": [
     "static/js/runtime-main.be038cd0.js",
     "static/css/2.a5804542.chunk.css",
-    "static/js/2.b894414b.chunk.js",
-    "static/js/main.dc067488.chunk.js"
+    "static/js/2.fbab8346.chunk.js",
+    "static/js/main.b4d98c86.chunk.js"
   ]
 }
