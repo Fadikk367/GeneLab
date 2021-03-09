@@ -5,14 +5,14 @@ import { ToastContainer } from 'react-toastify';
 
 import { 
   Home, 
-  TestCatalog,  
-  Cart, 
+  ExaminationsOffer,  
   OnlineResults,
   AdministrationPanel, 
   NotFound, 
   DiagnosticLaboratory, 
   Login, 
-  Reports 
+  Reports,
+  Order,
 } from './pages';
 
 import { BasketPreview, ProtectedRoute, Navigation, Logo, EmployeeInfoBox } from 'common/components';
@@ -36,7 +36,7 @@ const App = () => {
 
   const publicLinks = [
     { path: '/', text: 'Strona główna'},
-    { path: '/test-catalog', text: 'Katalog badań'},
+    { path: '/offer', text: 'Oferta badań'},
     { path: '/results', text: 'Wyniki online'},
   ]
 
@@ -65,9 +65,9 @@ const App = () => {
         <Page>
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/test-catalog' exact component={TestCatalog} />
-            <Route path='/cart' component={Cart} />
+            <Route path='/offer' exact component={ExaminationsOffer} />
             <Route path='/results' exact component={OnlineResults} />
+            <Route path='/order' exact component={Order} />
             <Route path='/login' component={Login} />
             <ProtectedRoute path='/admin-panel' auth={auth} component={AdministrationPanel} />
             <ProtectedRoute path='/laboratory' auth={auth} component={DiagnosticLaboratory} />

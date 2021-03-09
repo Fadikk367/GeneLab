@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ListItem = styled.li`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 7px 10px;
 
   ${props => props.header ? 'font-size: 1.1em;' : null}
   ${props => props.header ? 'color: white;' : null}
@@ -17,29 +17,26 @@ export const ListItem = styled.li`
   &:nth-child(odd) {
     background-color: #f2f2f2;
   }
-
-  &:hover {
-    background-color: lightgrey;
-  }
 `;
 
 export const Lp = styled.span`
   font-style: italic;
   font-weight: 200;
-  width: 20px;
+  width: 30px;
 `;
 
 export const Cell = styled.span`
   flex: ${props => props.flex || 'none'};
   width: ${props => props.width || 'auto'}px;
-  padding: 0 10px;
+  padding: 10px 0;
 `;
 
 export const ItemControls = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  /* padding: 10px; */
+  flex: ${props => props.flex || 'none'};
+  width: ${props => props.width || 'auto'}px;
 `;
 
 export const Control = styled.button`
