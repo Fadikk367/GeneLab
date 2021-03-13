@@ -5,6 +5,8 @@
 
 Aplikacje webowa będąca jednocześnie sklepem online laboratorium diagnostycznego, panelem zarządzania siecią laboratoriów i miejscem "pracy" pracowników, którzy w odpowiednim panelu mogą wprowadzać wyniki zleconych badań.
 
+### [DEMO](https://fadikk367.github.io/GeneLab/#/)
+
 ## Interfejs użytkownika
 ### Strona główna
 ![Strona główna aplikacji](https://fadikktestbucket.s3.eu-central-1.amazonaws.com/genelab/home.png)
@@ -22,6 +24,11 @@ Aplikacje webowa będąca jednocześnie sklepem online laboratorium diagnostyczn
 
 ### Panel logowania dla pracowników/administratorów
 ![Profile użytkownika](https://fadikktestbucket.s3.eu-central-1.amazonaws.com/genelab/login.png)
+
+Przykładowe dane logowania dla wybranego pracownika:
+
+> email: konrad.rymek@genelab.com
+hasło: password
 
 ### Panel administracyjny
 ![Profile użytkownika](https://fadikktestbucket.s3.eu-central-1.amazonaws.com/genelab/administration.png)
