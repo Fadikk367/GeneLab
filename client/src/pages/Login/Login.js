@@ -40,7 +40,7 @@ const Login =  () => {
           </FormControl>
           <FormControl>
             <InputLabel htmlFor='password-input'>Hasło</InputLabel>
-            <TextInput id='passwordinput'  value={password} onChange={e => setPassword(e.target.value)}/>
+            <TextInput id='passwordinput' type='password' value={password} onChange={e => setPassword(e.target.value)}/>
             <ErrorMessageBox></ErrorMessageBox>
           </FormControl>
           <LoginButton type='submit'>Zaloguj się</LoginButton>
