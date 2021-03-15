@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/GeneLab/static/js/main.b4d98c86.chunk.js",
-    "main.js.map": "/GeneLab/static/js/main.b4d98c86.chunk.js.map",
+    "main.js": "/GeneLab/static/js/main.ebc41dca.chunk.js",
+    "main.js.map": "/GeneLab/static/js/main.ebc41dca.chunk.js.map",
     "runtime-main.js": "/GeneLab/static/js/runtime-main.be038cd0.js",
     "runtime-main.js.map": "/GeneLab/static/js/runtime-main.be038cd0.js.map",
     "static/css/2.a5804542.chunk.css": "/GeneLab/static/css/2.a5804542.chunk.css",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.be038cd0.js",
     "static/css/2.a5804542.chunk.css",
     "static/js/2.fbab8346.chunk.js",
-    "static/js/main.b4d98c86.chunk.js"
+    "static/js/main.ebc41dca.chunk.js"
   ]
 }
