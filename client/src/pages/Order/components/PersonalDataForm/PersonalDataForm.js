@@ -29,7 +29,21 @@ const PersonalDataForm = ({ formContent }) => {
         fullWidth
       />
       <TextField 
-        inputRef={register({ required: 'Pesel jest wymagany' })}
+        inputRef={register({ 
+          required: 'Pesel jest wymagany',
+          minLength: {
+            value: 11,
+            message: 'Pesel musi miec dokładnie 11 cyfr',
+          },
+          maxLength: {
+            value: 11,
+            message: 'Pesel musi miec dokładnie 11 cyfr',
+          },
+          pattern: {
+            message: 'Niepoprawny format numeru PESEL',
+            value: /^\d{11}$/g,
+          }
+        })}
         name='pesel'
         label='PESEL'
         helperText={(errors.pesel && errors.pesel.message) || ' '}
