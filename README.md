@@ -39,9 +39,9 @@ KOD:	*8d7d5323-6cd4-431f-ac83-fb8877021065*
 ### Panel logowania dla pracowników/administratorów
 ![Profile użytkownika](https://fadikktestbucket.s3.eu-central-1.amazonaws.com/genelab/login.png)
 
-Przykładowe dane logowania dla wybranego pracownika:
+Przykładowe dane logowania dla wybranego pracownika:  
 
-> email: konrad.rymek@genelab.com
+> email: konrad.rymek@genelab.com  
 hasło: password
 
 Pracownicy dodawani są przez administratora w odpowiedniej zakładce panelu administracyjnego co jest równoznaczne ze stworzeniem konta pracownika.
