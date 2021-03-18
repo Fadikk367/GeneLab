@@ -61,6 +61,11 @@ Na powyższym zdjęciu widoczny jest panel pracowników - tworząc nowego pracow
 
 Raporty stanowią podsumowania finansowe lub wydajnościowe danych laboratoriów czy pracowników.
 
+## Struktura bazy danych - diagram ERD
+![Diagram ERD](https://fadikktestbucket.s3.eu-central-1.amazonaws.com/genelab/ERD.png)
+
+Plik PDF z czytelniejszą wersją oraz definicjami typów enum jest dostępny [TUTAJ](https://github.com/Fadikk367/GeneLab/blob/main/docs/diagramy.pdf)
+
 ## Stack technologiczny
 
 * Frontend - React
